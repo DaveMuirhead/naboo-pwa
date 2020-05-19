@@ -10,7 +10,9 @@
               <v-card-text>Start your free search for therapy in your area.</v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn color="primary">Find Therapy</v-btn>
+                <router-link to="/onboarding/seeker">
+                  <v-btn color="primary">Find Therapy</v-btn>
+                </router-link>
                 <v-spacer />
               </v-card-actions>
             </v-card>
@@ -21,7 +23,9 @@
               <v-card-text>Create a free profile and find therapy clients in your area</v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn color="primary">Find Clients</v-btn>
+                <router-link to="/onboarding/provider">
+                  <v-btn color="primary">Find Clients</v-btn>
+                </router-link>
                 <v-spacer />
               </v-card-actions>
             </v-card>
