@@ -11,43 +11,51 @@
     </v-stepper-header>
 
     <v-stepper-items>
-
       <v-stepper-content step="1">
-        <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
+        <GettingStarted></GettingStarted>
         <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
         <v-btn text>Cancel</v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
+        <Location></Location>
         <v-btn color="primary" @click="e1 = 3">Continue</v-btn>
         <v-btn text>Cancel</v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
+        <Phone></Phone>
         <v-btn color="primary" @click="e1 = 4">Continue</v-btn>
         <v-btn text>Cancel</v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="4">
-        <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
+        <Specialties></Specialties>
         <v-btn color="primary" @click="e1 = 1">Continue</v-btn>
         <v-btn text>Cancel</v-btn>
       </v-stepper-content>
-
     </v-stepper-items>
   </v-stepper>
 </template>
 
 
 <script>
+import GettingStarted from "@/components/onboarding/provider/getting-started";
+import Location from "@/components/onboarding/provider/location";
+import Phone from "@/components/onboarding/provider/phone";
+import Specialties from "@/components/onboarding/provider/specialties";
 export default {
-layout: 'landing',
+  layout: "landing",
   data() {
     return {
       e1: 1
     };
+  },
+  components: {
+    GettingStarted,
+    Location,
+    Phone,
+    Specialties
   }
 };
 </script>
