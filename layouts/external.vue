@@ -5,10 +5,13 @@
         <v-img :src="require('@/assets/images/icon.png')" width="175" height="70"></v-img>
       </router-link>
       <v-spacer />
-      <v-btn outlined style="margin-right: 16px" color="primary">
-        <v-icon left>mdi-account</v-icon>Log In
+      <v-btn outlined style="margin-right: 16px" color="primary" v-if="$vuetify.breakpoint.mdAndUp">
+        <v-icon left>mdi-account</v-icon> Log In
       </v-btn>
-      <v-btn style="margin-right: 16px" color="primary">Sign Up</v-btn>
+      <v-btn text style="margin-right: 6px" color="primary" v-if="!$vuetify.breakpoint.mdAndUp">
+        <v-icon left>mdi-account</v-icon>
+      </v-btn>
+      <v-btn style="margin-right: 12px" color="primary">Sign Up</v-btn>
       <v-app-bar-nav-icon />
     </v-app-bar>
 
