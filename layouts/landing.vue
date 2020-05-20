@@ -1,7 +1,9 @@
 <template>
   <v-app id="app">
     <v-content>
-      <v-img :src="require('@/assets/images/icon.png')" width="300" height="120"></v-img>
+      <router-link to="/">
+        <v-img :src="require('@/assets/images/icon.png')" width="300" height="120"></v-img>
+      </router-link>
       <v-container class="fill-height">
         <v-row align="center" justify="center">
           <v-col md="8" sm="12" >
