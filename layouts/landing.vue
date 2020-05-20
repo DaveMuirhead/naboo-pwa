@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <v-content>
       <v-img :src="require('@/assets/images/icon.png')" width="300" height="120"></v-img>
       <v-container class="fill-height">
@@ -25,3 +25,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#app {
+  background-color: var(--v-background-base);
+}
+</style>
