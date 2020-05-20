@@ -61,13 +61,39 @@ export default {
   */
   vuetify: {
     theme: {
-      primary: colors.blue.darken2,
-      accent: colors.grey.darken3,
-      secondary: colors.amber.darken3,
-      info: colors.teal.lighten1,
-      warning: colors.amber.base,
-      error: colors.deepOrange.accent4,
-      success: colors.green.accent3
+      dark: false,
+      themes: {
+        light: {
+          primary: '#74C010',
+          secondary: {
+            base: '#74C010',
+            lighten3: '#a0d367',
+            darken3: '#4E9D00'
+          },
+          accent: '#1B676B',
+          background: '#f9fbe7',
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        },
+        dark: {
+          primary: '#74C010',
+          secondary: {
+            base: '#74C010',
+            lighten3: '#a0d367',
+            darken3: '#4E9D00'
+          },
+          accent: '#9c27b0',
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        },
+      },
+      options: {
+        customProperties: true
+      },
     }
   },
   /*
