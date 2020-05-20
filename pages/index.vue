@@ -1,43 +1,70 @@
 <template>
-  <v-card class="elevation-12">
-    <v-card-title primary-title class="justify-center">Let's Get Started</v-card-title>
-    <v-card-text>
-      <v-container>
-        <v-row align="stretch" justify="space-around" class="d-flex flex-wrap">
-          <v-col>
-            <v-card outlined min-width="300px">
-              <v-card-title>I need a therapist</v-card-title>
-              <v-card-text>Start your free search for therapy in your area.</v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <router-link to="/onboarding/seeker">
-                  <v-btn color="primary">Find Therapy</v-btn>
-                </router-link>
-                <v-spacer />
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card outlined min-width="300px">
-              <v-card-title>I need therapy clients</v-card-title>
-              <v-card-text>Create a free profile and find therapy clients in your area</v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <router-link to="/onboarding/provider">
-                  <v-btn color="primary">Find Clients</v-btn>
-                </router-link>
-                <v-spacer />
-              </v-card-actions>
-            </v-card>
+  <div>
+    <v-row align="center" justify="center">
+      <v-col class="text-center" cols="12">
+        <v-row align="center" justify="center">
+          <v-col class="text-center" cols="12">
+            <h1
+              class="display-2 font-weight-bold mb-4"
+              color="primary"
+            >A New Way to Find and Sell Therapy Services</h1>
+            <h2 class="subheading">Join the community and get sprouting!</h2>
           </v-col>
         </v-row>
-      </v-container>
-    </v-card-text>
-  </v-card>
+
+        <v-row align="center" justify="center" style="margin-top: 200px;">
+          <v-col>
+            <v-btn color="primary" @click.stop="onboardingDialog = true">I'm new to UpSprout</v-btn>
+            <v-dialog v-model="onboardingDialog" width="600px">
+              <v-card>
+                <v-card-title primary-title>Great! Let's get started!</v-card-title>
+                <v-card-text class="subtitle-1">Are you seeking therapy services? Or are you a provider of therapy services?</v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <NuxtLink to="/onboarding/seeker" style="margin-right: 40px;">
+                    <v-btn color="primary">I'm Seeking Therapy Services</v-btn>
+                  </NuxtLink>
+                  <NuxtLink to="/onboarding/provider">
+                    <v-btn color="primary">I Provide Therapy Services</v-btn>
+                  </NuxtLink>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-btn color="primary" @click.stop="loginDialog = true">I already have an account</v-btn>
+            <v-dialog v-model="loginDialog" width="600px">
+              <v-card>
+                <v-card-title primary-title>Okay, let's get you signed in!</v-card-title>
+                <v-card-text class="subtitle-1">Some people have both seeker and a provider accounts. In case you do, which account do you want to sign into?</v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <NuxtLink to="/auth/seeker" style="margin-right: 40px;">
+                    <v-btn color="primary">Seeker login</v-btn>
+                  </NuxtLink>
+                  <NuxtLink to="/auth/provider">
+                    <v-btn color="primary">Provider login</v-btn>
+                  </NuxtLink>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </div>
 </template>
+
+
 
 <script>
 export default {
-  layout: "landing"
+  layout: "external",
+  data() {
+    return {
+      onboardingDialog: false,
+      loginDialog: false
+    };
+  }
 };
 </script>

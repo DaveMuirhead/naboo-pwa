@@ -45,7 +45,7 @@ import Location from "@/components/onboarding/provider/location";
 import Phone from "@/components/onboarding/provider/phone";
 import Specialties from "@/components/onboarding/provider/specialties";
 export default {
-  layout: "landing",
+  layout: "external",
   data() {
     return {
       e1: 1

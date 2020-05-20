@@ -1,10 +1,10 @@
 <template>
-    
+    <h1>Onboarding > Seeker</h1>
 </template>
 
 <script>
 export default {
-    layout: 'landing'
+    layout: 'external'
 }
 </script>
 
