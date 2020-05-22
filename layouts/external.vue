@@ -5,25 +5,18 @@
         <v-img :src="require('@/assets/images/logo.png')" width="150" height="60"></v-img>
       </nuxt-link>
       <v-spacer />
-      <v-btn outlined style="margin-right: 16px" color="primary">
-        <v-icon left>mdi-account</v-icon>Log In
+      <v-btn outlined color="primary" class="mr-sm-2 mr-md-4">
+        <v-icon
+          :left="$vuetify.breakpoint.mdAndUp"
+          :center="$vuetify.breakpoint.mdAndUp">mdi-account</v-icon>
+          <span class="hidden-sm-and-down">Log In</span>
       </v-btn>
-      <!-- <v-btn text style="margin-right: 6px" color="primary" v-if="!$vuetify.breakpoint.mdAndUp">
-        <v-icon left>mdi-account</v-icon>
-      </v-btn>-->
-      <v-btn style="margin-right: 12px" color="primary">Sign Up</v-btn>
-      <v-app-bar-nav-icon />
+      <span>&nbsp;</span>
+      <v-btn color="primary" class="mr-sm-2 mr-md-4">Sign Up</v-btn>
     </v-app-bar>
 
     <v-content>
-      <!-- <v-container class="fill-height" fluid> -->
-      <v-container fluid>
-        <!-- <v-row align="center" justify="center">
-        <v-col md="8" sm="12">-->
-        <nuxt />
-        <!-- </v-col>
-        </v-row>-->
-      </v-container>
+      <nuxt />
     </v-content>
 
     <v-footer app color="primary">

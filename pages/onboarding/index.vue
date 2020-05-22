@@ -1,34 +1,32 @@
 <template>
-  <v-row align="center" justify="center">
-    <v-col class="text-center" cols="12">
+  <v-container>
+    <v-row class="my-5">
+      <v-col class="text-center">
+        <h1
+          class="display-1 font-weight-bold mb-4"
+          color="primary"
+        >A New Way to Find and Sell Therapy Services</h1>
+        <h2 class="subheading">Great! Let's get started.</h2>
+      </v-col>
+    </v-row>
 
-      <v-row align="center" justify="center">
-        <v-col class="text-center" cols="12">
-          <h1
-            class="display-2 font-weight-bold mb-4"
-            color="primary"
-          >A New Way to Find and Sell Therapy Services</h1>
-          <h2 class="subheading">Join the community and get sprouting!</h2>
-        </v-col>
-      </v-row>
-
-      <v-row align="center" justify="center" style="margin-top: 200px;">
-        <v-col cols="12">
-          <nuxt-link to="/onboarding" style="margin-right: 40px;">
-            <v-btn color="primary">I'm New to UpSprout</v-btn>
-          </nuxt-link>
-          <nuxt-link to="/onboarding/provider">
-            <v-btn color="primary">I Already Have an Account</v-btn>
-          </nuxt-link>
-        </v-col>
-      </v-row>
-
-    </v-col>
-  </v-row>
+    <v-row class="my-5; background: yellow" justify="center">
+      <v-col class="background: red" md="4" sm="8">
+        <nuxt-link to="/onboarding/seeker">
+          <v-btn color="primary">I'm Seeking Therapy Services</v-btn>
+        </nuxt-link>
+      </v-col>
+      <v-col class="background: blue" md="4" sm="8">
+        <nuxt-link to="/onboarding/provider">
+          <v-btn color="primary">I Provide Therapy Servicesr</v-btn>
+        </nuxt-link>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
-  layout: "external"
+  layout: "external",
 };
 </script>
