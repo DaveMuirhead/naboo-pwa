@@ -1,61 +1,45 @@
 <template>
-  <v-stepper v-model="e1">
-    <v-stepper-header>
-      <v-stepper-step :complete="e1 > 1" step="1">Get Started</v-stepper-step>
-      <v-divider></v-divider>
-      <v-stepper-step :complete="e1 > 2" step="2">Location</v-stepper-step>
-      <v-divider></v-divider>
-      <v-stepper-step :complete="e1 > 3" step="3">Phone Number</v-stepper-step>
-      <v-divider></v-divider>
-      <v-stepper-step step="4">Specialties</v-stepper-step>
-    </v-stepper-header>
-
-    <v-stepper-items>
-      <v-stepper-content step="1">
-        <GettingStarted></GettingStarted>
-        <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
-        <v-btn text>Cancel</v-btn>
-      </v-stepper-content>
-
-      <v-stepper-content step="2">
-        <Location></Location>
-        <v-btn color="primary" @click="e1 = 3">Continue</v-btn>
-        <v-btn text>Cancel</v-btn>
-      </v-stepper-content>
-
-      <v-stepper-content step="3">
-        <Phone></Phone>
-        <v-btn color="primary" @click="e1 = 4">Continue</v-btn>
-        <v-btn text>Cancel</v-btn>
-      </v-stepper-content>
-
-      <v-stepper-content step="4">
-        <Specialties></Specialties>
-        <v-btn color="primary" @click="e1 = 1">Continue</v-btn>
-        <v-btn text>Cancel</v-btn>
-      </v-stepper-content>
-    </v-stepper-items>
-  </v-stepper>
+  <v-container fluid>
+    <v-row justify="center">
+      <v-col md="6" sm="8">
+        <v-card>
+          <v-card-title primary-title>Create Your Free Account</v-card-title>
+          <v-card-subtitle>
+            Already have an UpSprout account?
+            <nuxt-link to="/auth">Sign In</nuxt-link>
+          </v-card-subtitle>
+          <v-card-text>
+            <v-form @submit.prevent="submit">
+              <v-text-field v-model="firstName" label="First Name" required></v-text-field>
+              <v-text-field v-model="lastName" label="Last Name" required></v-text-field>
+              <v-text-field v-model="email" label="Email Address" required></v-text-field>
+              <v-text-field v-model="password" label="Password" required></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="primary">Create UpSprout Account</v-btn>
+            <v-spacer />
+          </v-card-actions>
+          <v-card-text>
+            By clicking "Sign Up" you agree to UpSprout Terms and Privacy Policy
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
-
 <script>
-import GettingStarted from "@/components/onboarding/provider/getting-started";
-import Location from "@/components/onboarding/provider/location";
-import Phone from "@/components/onboarding/provider/phone";
-import Specialties from "@/components/onboarding/provider/specialties";
 export default {
-  layout: "external",
+  layout: "nochrome",
   data() {
     return {
-      e1: 1
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: ""
     };
-  },
-  components: {
-    GettingStarted,
-    Location,
-    Phone,
-    Specialties
   }
 };
 </script>
