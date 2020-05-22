@@ -11,12 +11,12 @@
     </v-row>
 
     <v-row class="my-5" justify="center">
-      <v-col md="2" sm="2">
+      <v-col class="d-flex justify-end" md="3" sm="8">
         <nuxt-link to="/onboarding">
           <v-btn color="primary">Get Started</v-btn>
         </nuxt-link>
       </v-col>
-      <v-col md="2" sm="2">
+      <v-col class="d-flex justify-start" justify="center"  md="3" sm="8">
         <nuxt-link to="/tour">
           <v-btn color="primary">Take a Tour</v-btn>
         </nuxt-link>
