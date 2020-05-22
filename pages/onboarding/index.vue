@@ -14,12 +14,12 @@
 
       <v-row align="center" justify="center" style="margin-top: 200px;">
         <v-col cols="12">
-          <router-link to="/onboarding" style="margin-right: 40px;">
+          <nuxt-link to="/onboarding" style="margin-right: 40px;">
             <v-btn color="primary">I'm New to UpSprout</v-btn>
-          </router-link>
-          <router-link to="/onboarding/provider">
+          </nuxt-link>
+          <nuxt-link to="/onboarding/provider">
             <v-btn color="primary">I Already Have an Account</v-btn>
-          </router-link>
+          </nuxt-link>
         </v-col>
       </v-row>
 
