@@ -10,13 +10,13 @@
       </v-col>
     </v-row>
 
-    <v-row class="my-5; background: yellow" justify="center">
-      <v-col class="background: red" md="4" sm="8">
+    <v-row class="my-5" justify="center">
+      <v-col class="d-flex justify-center" cols="12" md="4" sm="12">
         <nuxt-link to="/onboarding/seeker">
           <v-btn color="primary">I'm Seeking Therapy Services</v-btn>
         </nuxt-link>
       </v-col>
-      <v-col class="background: blue" md="4" sm="8">
+      <v-col class="d-flex justify-center" cols="12" md="4" sm="12">
         <nuxt-link to="/onboarding/provider">
           <v-btn color="primary">I Provide Therapy Servicesr</v-btn>
         </nuxt-link>
