@@ -3,8 +3,8 @@
     <v-row justify="center">
       <v-col md="6" sm="8">
         <v-card>
-          <v-card-title primary-title>Create Your Free Account</v-card-title>
-          <v-card-subtitle>
+          <v-card-title class="headline">Create Your Free Account</v-card-title>
+          <v-card-subtitle class="subtitle-1">
             Already have an UpSprout account?
             <nuxt-link to="/auth">Sign In</nuxt-link>
           </v-card-subtitle>
@@ -22,7 +22,9 @@
             <v-spacer />
           </v-card-actions>
           <v-card-text>
-            By clicking "Sign Up" you agree to <nuxt-link to="/terms">UpSprout Terms</nuxt-link> and <nuxt-link to="/privacy">Privacy Policy</nuxt-link>.
+            By clicking "Sign Up" you agree to
+            <nuxt-link to="/terms">UpSprout Terms</nuxt-link>and
+            <nuxt-link to="/privacy">Privacy Policy</nuxt-link>.
           </v-card-text>
         </v-card>
       </v-col>
