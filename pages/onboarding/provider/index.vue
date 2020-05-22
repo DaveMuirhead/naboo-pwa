@@ -22,7 +22,7 @@
             <v-spacer />
           </v-card-actions>
           <v-card-text>
-            By clicking "Sign Up" you agree to UpSprout Terms and Privacy Policy
+            By clicking "Sign Up" you agree to <nuxt-link to="/terms">UpSprout Terms</nuxt-link> and <nuxt-link to="/privacy">Privacy Policy</nuxt-link>.
           </v-card-text>
         </v-card>
       </v-col>
