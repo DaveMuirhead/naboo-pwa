@@ -1,12 +1,12 @@
 <template>
-  <v-card>
-    <v-card-title class="headline">Create Your Free Account</v-card-title>
-    <v-card-subtitle class="subtitle-1">
-      Already have an UpSprout account?
-      <nuxt-link to="/auth">Sign In</nuxt-link>
-    </v-card-subtitle>
-    <v-card-text>
-      <v-form @submit.prevent="submit">
+  <v-form @submit.prevent="onSubmit">
+    <v-card>
+      <v-card-title class="headline">Create Your Free Account</v-card-title>
+      <v-card-subtitle class="subtitle-1">
+        Already have an UpSprout account?
+        <nuxt-link to="/auth">Sign In</nuxt-link>
+      </v-card-subtitle>
+      <v-card-text>
         <!-- Full Name -->
         <v-text-field
           v-model="fullName"
@@ -50,19 +50,19 @@
           type="error"
           v-if="$v.password.$dirty && (!$v.password.required || $v.password.minLength)"
         >Please choose a stronger password. Try a mix of letters, numbers and symbols.</v-alert>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer />
-      <v-btn color="primary">Create My Account</v-btn>
-      <v-spacer />
-    </v-card-actions>
-    <v-card-text>
-      By clicking "Sign Up" you agree to
-      <nuxt-link to="/terms">UpSprout Terms</nuxt-link>and
-      <nuxt-link to="/privacy">Privacy Policy</nuxt-link>.
-    </v-card-text>
-  </v-card>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn type="submit" color="primary">Create My Account</v-btn>
+        <v-spacer />
+      </v-card-actions>
+      <v-card-text>
+        By clicking "Sign Up" you agree to
+        <nuxt-link to="/terms">UpSprout Terms</nuxt-link>and
+        <nuxt-link to="/privacy">Privacy Policy</nuxt-link>.
+      </v-card-text>
+    </v-card>
+  </v-form>
 </template>
 
 <script>
@@ -86,6 +86,13 @@ export default {
     },
     password: {
       minLength: minLength(8)
+    }
+  },
+  methods: {
+    onSubmit() {
+      this.$axios.$post("http://localhost:4004/v1/api/register", {
+        foo: "bar"
+      });
     }
   }
 };

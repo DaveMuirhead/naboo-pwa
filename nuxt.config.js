@@ -47,9 +47,8 @@ export default {
   */
   modules: [
     '@nuxtjs/vuetify',
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    ['@nuxtjs/proxy', { logLevel: 'debug' }]
   ],
   /*
   ** Axios module configuration
@@ -57,8 +56,12 @@ export default {
   */
   axios: {
     baseURL: "http://localhost:4004/api/v1",
-    debug: true
+    debug: true,
+    proxy: true
   },
+  proxy: [
+    'http://localhost:4004/api'
+  ],
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
