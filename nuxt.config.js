@@ -34,6 +34,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '~assets/style/main.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -55,6 +56,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: "http://localhost:4004/api/v1",
+    debug: true
   },
   /*
   ** vuetify module configuration
@@ -106,5 +109,7 @@ export default {
     */
     extend(config, ctx) {
     }
+  },
+  env: {
   }
 }
