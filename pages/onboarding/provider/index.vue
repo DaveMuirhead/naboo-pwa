@@ -17,12 +17,15 @@ export default {
   },
   methods: {
     signup($event) {
-      this.$axios.$post("http://localhost:4004/v1/auth/identity/callback", {
-        email: $event.email,
-        full_name: $event.fullName,
-        password: $event.password,
-        password_confirmation: $event.password
-      });
+      this.$store.dispatch(
+        'auth/signup',
+        {
+          email: $event.email,
+          full_name: $event.fullName,
+          password: $event.password,
+          password_confirmation: $event.password
+        }
+      )
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row justify="center">
-      <v-col md="6" sm="8">
+      <v-col md="4" sm="6">
         <Login @login="login"></Login>
       </v-col>
     </v-row>
@@ -17,10 +17,13 @@ export default {
   },
   methods: {
     login($event) {
-      this.$axios.$post("http://localhost:4004/v1/auth/identity/callback", {
-        email: $event.email,
-        password: $event.password
-      });
+      this.$store.dispatch(
+        'auth/login',
+        {
+          email: $event.email,
+          password: $event.password
+        }
+      )
     }
   }
 };

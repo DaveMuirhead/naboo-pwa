@@ -4,7 +4,7 @@
       <v-card-title class="headline">Create Your Free Account</v-card-title>
       <v-card-subtitle class="subtitle-1">
         Already have an UpSprout account?
-        <NuxtLink to="/auth">Sign In</NuxtLink>
+        <NuxtLink to="/auth/login">Log In</NuxtLink>
       </v-card-subtitle>
       <v-card-text>
         <!-- Full Name -->
