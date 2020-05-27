@@ -1,10 +1,10 @@
 <template>
-  <v-form @submit.prevent="onSubmit">
+  <v-form @submit.prevent="signup">
     <v-card>
       <v-card-title class="headline">Create Your Free Account</v-card-title>
       <v-card-subtitle class="subtitle-1">
         Already have an UpSprout account?
-        <nuxt-link to="/auth">Sign In</nuxt-link>
+        <NuxtLink to="/auth">Sign In</NuxtLink>
       </v-card-subtitle>
       <v-card-text>
         <!-- Full Name -->
@@ -32,7 +32,7 @@
           dense
           outlined
           type="error"
-          v-if="$v.email.$dirty && !$v.email.required"
+          v-if="$v.email.$dirty && (!$v.email.required || !$v.email.email)"
         >Please enter your email address in format: yourname@example.com</v-alert>
 
         <!-- Password -->
@@ -40,6 +40,7 @@
           v-model="password"
           label="Password"
           prepend-icon="mdi-lock"
+          @blur="$v.password.$touch"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
@@ -48,7 +49,7 @@
           dense
           outlined
           type="error"
-          v-if="$v.password.$dirty && (!$v.password.required || $v.password.minLength)"
+          v-if="$v.password.$dirty && (!$v.password.required || !$v.password.minLength)"
         >Please choose a stronger password. Try a mix of letters, numbers and symbols.</v-alert>
       </v-card-text>
       <v-card-actions>
@@ -57,9 +58,9 @@
         <v-spacer />
       </v-card-actions>
       <v-card-text>
-        By clicking "Sign Up" you agree to
-        <nuxt-link to="/terms">UpSprout Terms</nuxt-link>and
-        <nuxt-link to="/privacy">Privacy Policy</nuxt-link>.
+        By clicking "Create My Account" you agree to
+        <NuxtLink to="/terms">UpSprout Terms</NuxtLink>and
+        <NuxtLink to="/privacy">Privacy Policy</NuxtLink>.
       </v-card-text>
     </v-card>
   </v-form>
@@ -85,14 +86,18 @@ export default {
       email
     },
     password: {
+      required,
       minLength: minLength(8)
     }
   },
   methods: {
-    onSubmit() {
-      this.$axios.$post("http://localhost:4004/v1/api/register", {
-        foo: "bar"
-      });
+    signup() {
+      this.$emit('signup', {
+        email: this.email,
+        full_name: this.fullName,
+        password: this.password,
+        password_confirmation: this.password,
+      })
     }
   }
 };

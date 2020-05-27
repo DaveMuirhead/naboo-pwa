@@ -2,26 +2,24 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col md="6" sm="8">
-        <Signup @signup="signup"></Signup>
+        <Login @login="login"></Login>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import Signup from "@/components/signup";
+import Login from "@/components/login";
 export default {
   layout: "nochrome",
   components: {
-    Signup
+    Login
   },
   methods: {
-    signup($event) {
+    login($event) {
       this.$axios.$post("http://localhost:4004/v1/auth/identity/callback", {
         email: $event.email,
-        full_name: $event.fullName,
-        password: $event.password,
-        password_confirmation: $event.password
+        password: $event.password
       });
     }
   }

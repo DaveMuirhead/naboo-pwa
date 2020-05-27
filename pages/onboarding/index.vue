@@ -12,14 +12,14 @@
 
     <v-row class="my-5" justify="center">
       <v-col class="d-flex justify-center" cols="12" md="4" sm="12">
-        <nuxt-link to="/onboarding/seeker">
+        <NuxtLink to="/onboarding/seeker">
           <v-btn color="primary">I'm Seeking Therapy Services</v-btn>
-        </nuxt-link>
+        </NuxtLink>
       </v-col>
       <v-col class="d-flex justify-center" cols="12" md="4" sm="12">
-        <nuxt-link to="/onboarding/provider">
+        <NuxtLink to="/onboarding/provider">
           <v-btn color="primary">I Provide Therapy Servicesr</v-btn>
-        </nuxt-link>
+        </NuxtLink>
       </v-col>
     </v-row>
   </v-container>

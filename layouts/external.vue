@@ -1,18 +1,22 @@
 <template>
   <v-app id="app">
     <v-app-bar color="background" app flat>
-      <nuxt-link to="/">
+      <NuxtLink to="/">
         <v-img :src="require('@/assets/images/logo.png')" width="150" height="60"></v-img>
-      </nuxt-link>
+      </NuxtLink>
       <v-spacer />
-      <v-btn outlined color="primary" class="mr-sm-2 mr-md-4">
-        <v-icon
-          :left="$vuetify.breakpoint.mdAndUp"
-          :center="$vuetify.breakpoint.mdAndUp">mdi-account</v-icon>
-          <span class="hidden-sm-and-down">Log In</span>
-      </v-btn>
+      <NuxtLink to="/auth/login">
+        <v-btn outlined color="primary" class="mr-sm-2 mr-md-4">
+          <v-icon
+            :left="$vuetify.breakpoint.mdAndUp"
+            :center="$vuetify.breakpoint.mdAndUp">mdi-account</v-icon>
+            <span class="hidden-sm-and-down">Log In</span>
+        </v-btn>
+      </NuxtLink>
       <span>&nbsp;</span>
-      <v-btn color="primary" class="mr-sm-2 mr-md-4">Sign Up</v-btn>
+      <NuxtLink to="/onboarding">
+        <v-btn color="primary" class="mr-sm-2 mr-md-4">Sign Up</v-btn>
+      </NuxtLink>
     </v-app-bar>
 
     <v-content>
