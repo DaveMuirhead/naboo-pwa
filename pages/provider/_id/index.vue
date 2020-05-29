@@ -1,10 +1,10 @@
 <template>
-    <h1>Tour</h1>
+    <h1>Provider Profile Page</h1>
 </template>
 
 <script>
 export default {
-    layout: 'external'
+    layout: 'provider'
 }
 </script>
 

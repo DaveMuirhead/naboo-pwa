@@ -17,7 +17,7 @@
         </nuxt-link>
       </v-col>
       <v-col class="d-flex justify-start" justify="center"  md="3" sm="8">
-        <nuxt-link to="/tour">
+        <nuxt-link to="/about">
           <v-btn color="primary">Take a Tour</v-btn>
         </nuxt-link>
       </v-col>
@@ -27,6 +27,5 @@
 
 <script>
 export default {
-  layout: "external",
 };
 </script>

@@ -18,7 +18,7 @@
       </v-col>
       <v-col class="d-flex justify-center" cols="12" md="4" sm="12">
         <NuxtLink to="/onboarding/provider">
-          <v-btn color="primary">I Provide Therapy Servicesr</v-btn>
+          <v-btn color="primary">I Provide Therapy Services</v-btn>
         </NuxtLink>
       </v-col>
     </v-row>

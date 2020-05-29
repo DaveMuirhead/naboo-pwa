@@ -1,10 +1,10 @@
 <template>
-    <h1>Rcover my password</h1>
+    <h1>Seeker Home Page</h1>
 </template>
 
 <script>
 export default {
-    layout: 'external'
+    layout: 'seeker'
 }
 </script>
 

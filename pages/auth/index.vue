@@ -1,31 +1,31 @@
 <template>
   <v-container fluid>
     <v-row justify="center">
-      <v-col md="6" sm="8">
-        <Signup @signup="signup"></Signup>
+      <v-col md="4" sm="6">
+        <Login @login="login"></Login>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import Signup from "@/components/signup";
+import Login from "@/components/login";
 export default {
   layout: "nochrome",
   components: {
-    Signup
+    Login
   },
   methods: {
-    signup($event) {
+    login($event) {
       this.$store.dispatch(
-        'auth/signup',
+        'auth/login',
         {
           email: $event.email,
-          full_name: $event.fullName,
-          password: $event.password,
-          password_confirmation: $event.password
+          password: $event.password
         }
-      )
+      ).then(() => {
+        this.$router.push("/")
+      })
     }
   }
 };

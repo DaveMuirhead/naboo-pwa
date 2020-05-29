@@ -3,7 +3,7 @@
 // ============================================================
 export const state = () => ({
   userId: null,
-  idToken: null,
+  accessToken: null,
   refreshToken: null
 })
 
@@ -11,6 +11,9 @@ export const state = () => ({
 // Mutations
 // ============================================================
 export const mutations = {
+  setAccessToken(state, token) {
+    state.accessToken = token
+  }
 }
 
 // ============================================================
@@ -22,6 +25,7 @@ export const actions = {
     return this.$axios.$post(
       "http://localhost:4004/v1/auth/identity/callback",
       {
+        role: $event.role,
         email: $event.email,
         full_name: $event.fullName,
         password: $event.password,
@@ -29,7 +33,7 @@ export const actions = {
       }
     )
     .then(result => {
-      console.log(result)
+      vuexContext.commit('setAccessToken', result.data.token)
     })
     .catch( e => console.log(e));
 
@@ -44,7 +48,7 @@ export const actions = {
       }
     )
     .then(result => {
-      console.log(result)
+      vuexContext.commit('setAccessToken', result.data.token)
     })
     .catch( e => console.log(e));
   }
@@ -55,4 +59,7 @@ export const actions = {
 // Getters
 // ============================================================
 export const getters = {
+  isAuthenticated(state) {
+    return state.accessToken != null
+  }
 }

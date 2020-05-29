@@ -1,10 +1,10 @@
 <template>
-    <h1>Onboarding > Seeker</h1>
+    <h1>Rcover my password</h1>
 </template>
 
 <script>
 export default {
-    layout: 'external'
+    layout: 'nochrome'
 }
 </script>
 
