@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col md="6" sm="8">
-        <Signup @signup="signup"></Signup>
+        <Signup v-bind:emailError="emailError" @signup="signup"></Signup>
       </v-col>
     </v-row>
   </v-container>
@@ -14,6 +14,11 @@ export default {
   layout: "nochrome",
   components: {
     Signup
+  },
+  data() {
+    return {
+      emailError: null
+    }
   },
   methods: {
     signup($event) {
@@ -32,7 +37,7 @@ export default {
           console.log('seeker.vuew - catch with error');
           console.log('error.response.status = ' + error.response.status)
           console.log('error.response.data = ' + JSON.stringify(error.response.data))
-          
+          this.emailError = 'caught error ' + error.response.status
         //   if (error.response) {
         //     // client received an error response (5xx, 4xx)
         //     console.log('onboarding/seeker.vue :: signup - error on response')

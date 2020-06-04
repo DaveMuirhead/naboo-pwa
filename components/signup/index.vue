@@ -7,19 +7,15 @@
         <NuxtLink to="/auth/login">Log In</NuxtLink>
       </v-card-subtitle>
       <v-card-text>
+
         <!-- Full Name -->
         <v-text-field
           v-model="fullName"
           label="Full Name"
           prepend-icon="mdi-account-circle"
           @blur="$v.fullName.$touch"
+          :error-messages="fullNameErrors"
         ></v-text-field>
-        <v-alert
-          dense
-          outlined
-          type="error"
-          v-if="$v.fullName.$dirty && !$v.fullName.required"
-        >Please enter your full name.</v-alert>
 
         <!-- Email -->
         <v-text-field
@@ -27,13 +23,8 @@
           label="Email Address"
           prepend-icon="mdi-email"
           @blur="$v.email.$touch"
+          :error-messages="emailErrors"
         ></v-text-field>
-        <v-alert
-          dense
-          outlined
-          type="error"
-          v-if="$v.email.$dirty && (!$v.email.required || !$v.email.email)"
-        >Please enter your email address in format: yourname@example.com</v-alert>
 
         <!-- Password -->
         <v-text-field
@@ -44,13 +35,9 @@
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
+          :error-messages="passwordErrors"
         ></v-text-field>
-        <v-alert
-          dense
-          outlined
-          type="error"
-          v-if="$v.password.$dirty && (!$v.password.required || !$v.password.minLength)"
-        >Please choose a stronger password. Try a mix of letters, numbers and symbols.</v-alert>
+
       </v-card-text>
       <v-card-actions>
         <v-spacer />
@@ -69,6 +56,7 @@
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
+  props: ['emailError'],
   data() {
     return {
       fullName: "",
@@ -87,7 +75,15 @@ export default {
     },
     password: {
       required,
-      minLength: minLength(8)
+      strongPassword(password) {
+        return (
+          /[a-z]/.test(password) && // checks for a-z
+          /[A-Z]/.test(password) && // checks for A-Z
+          /[0-9]/.test(password) && // checks for 0-9
+          /\W|_/.test(password) &&  // checks for special char
+          password.length >= 8      // checks for length
+        )
+      }
     }
   },
   methods: {
@@ -97,6 +93,42 @@ export default {
         full_name: this.fullName,
         password: this.password
       })
+    }
+  },
+  computed: {
+    fullNameErrors() {
+      return (this.$v.fullName.$dirty && !this.$v.fullName.required)
+        ? ['Please enter your full name.']
+        : [];
+    },
+    emailErrors() {
+      const errors = []
+      if (!this.$v.email.$dirty) {
+        return errors;
+      }
+      if (!this.$v.email.required) {
+        errors.push('Email is required.')
+      }
+      if (!this.$v.email.email) {
+        errors.push('Email must be in the format you@yourco.com')
+      }
+      if (this.emailError) {
+        errors.push(this.emailError);
+      }
+      return errors;
+    },
+    passwordErrors() {
+      const errors = []
+      if (!this.$v.password.$dirty) {
+        return errors;
+      }
+      if (!this.$v.password.required) {
+        errors.push('Password is required.')
+      }
+      if (!this.$v.password.strongPassword) {
+        errors.push('Please choose a stronger password with at least 8 characters, including a minimum of one each of upper and lower case letters, numbers and special characters.')
+      }
+      return errors;
     }
   }
 };
