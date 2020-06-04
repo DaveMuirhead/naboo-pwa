@@ -59,8 +59,8 @@
       </v-card-actions>
       <v-card-text>
         By clicking "Create My Account" you agree to
-        <NuxtLink to="/terms">UpSprout Terms</NuxtLink>and
-        <NuxtLink to="/privacy">Privacy Policy</NuxtLink>.
+        <NuxtLink to="/about/terms">UpSprout Terms</NuxtLink>and
+        <NuxtLink to="/about/privacy">Privacy Policy</NuxtLink>.
       </v-card-text>
     </v-card>
   </v-form>
@@ -95,8 +95,7 @@ export default {
       this.$emit('signup', {
         email: this.email,
         full_name: this.fullName,
-        password: this.password,
-        password_confirmation: this.password,
+        password: this.password
       })
     }
   }

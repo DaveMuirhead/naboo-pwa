@@ -5,7 +5,7 @@
         <v-img :src="require('@/assets/images/logo.png')" width="150" height="60"></v-img>
       </NuxtLink>
       <v-spacer />
-      <NuxtLink to="/auth">
+      <NuxtLink to="/auth" v-if="!isAuthenticated">
         <v-btn outlined color="primary" class="mr-sm-2 mr-md-4">
           <v-icon
             :left="$vuetify.breakpoint.mdAndUp"
@@ -13,8 +13,16 @@
             <span class="hidden-sm-and-down">Log In</span>
         </v-btn>
       </NuxtLink>
+      <NuxtLink to="/auth/logout" v-if="isAuthenticated">
+        <v-btn outlined color="primary" class="mr-sm-2 mr-md-4">
+          <v-icon
+            :left="$vuetify.breakpoint.mdAndUp"
+            :center="$vuetify.breakpoint.mdAndUp">mdi-account</v-icon>
+            <span class="hidden-sm-and-down">Log Out</span>
+        </v-btn>
+      </NuxtLink>
       <span>&nbsp;</span>
-      <NuxtLink to="/onboarding">
+      <NuxtLink to="/onboarding" v-if="!isAuthenticated">
         <v-btn color="primary" class="mr-sm-2 mr-md-4">Sign Up</v-btn>
       </NuxtLink>
     </v-app-bar>
@@ -30,7 +38,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    isAuthenticated() {
+      return this.$store.getters['auth/isAuthenticated']
+    }
+  }
+};
 </script>
 
 <style>

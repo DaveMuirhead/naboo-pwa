@@ -11,6 +11,9 @@ export const state = () => ({
 // Mutations
 // ============================================================
 export const mutations = {
+  setUserId(state, id) {
+    state.userId = id
+  },
   setAccessToken(state, token) {
     state.accessToken = token
   }
@@ -22,37 +25,43 @@ export const mutations = {
 export const actions = {
 
   signup(vuexContext, authData) {
-    return this.$axios.$post(
-      "http://localhost:4004/v1/auth/identity/callback",
-      {
-        role: $event.role,
-        email: $event.email,
-        full_name: $event.fullName,
-        password: $event.password,
-        password_confirmation: $event.password
+    console.log('auth.signup called with accountType ' + authData.account_type)
+    return this.$axios
+      .$post("/auth/identity/callback", authData)
+      .then(
+        response => {
+          console.log('store/auth.js - signup success');
+          console.log(error);
+          vuexContext.commit('setUserId', response.data.email);
+          vuexContext.commit('setAccessToken', response.data.token);
+          return response;
+        }
+      )
+      .catch(
+        error => {
+          console.log('error.response.status = ' + error.response.status)
+          // console.log('store/auth.js - signup error');
+          // console.log(JSON.parse(JSON.stringify(error)));
+          return Promise.reject(error);
       }
     )
-    .then(result => {
-      vuexContext.commit('setAccessToken', result.data.token)
-    })
-    .catch( e => console.log(e));
-
   },
 
   login(vuexContext, authData) {
-    return this.$axios.$post(
-      "http://localhost:4004/v1/auth/identity/callback",
-      {
-        email: authData.email,
-        password: authData.password
+    console.log('auth.login called')
+    this.$axios
+    .$post("/auth/identity/callback", authData)
+    .then(
+      (response) => {
+        vuexContext.commit('setUserId', response.data.email);
+        vuexContext.commit('setAccessToken', response.data.token);
+      },
+      (error) => {
+        console.log(JSON.parse(JSON.stringify(error)));
+        return Promise.reject(error);
       }
     )
-    .then(result => {
-      vuexContext.commit('setAccessToken', result.data.token)
-    })
-    .catch( e => console.log(e));
   }
-
 }
 
 // ============================================================

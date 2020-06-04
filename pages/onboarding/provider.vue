@@ -17,16 +17,33 @@ export default {
   },
   methods: {
     signup($event) {
-      this.$store.dispatch(
-        'auth/signup',
-        {
-          role: 'provider',
-          email: $event.email,
-          full_name: $event.fullName,
-          password: $event.password,
-          password_confirmation: $event.password
+      try {
+        this.$store.dispatch(
+          'auth/signup',
+          {
+            action: 'signup',
+            account_type: 'provider',
+            email: $event.email,
+            full_name: $event.full_name,
+            password: $event.password
+          }
+        )
+      }
+      catch (error) {
+        if (error.response) {
+          // client received an error response (5xx, 4xx)
+          console.log('onboarding/provider.vue :: signup - error on response')
+          console.log(error.response)
+        } else if (error.request) {
+          // client never received a response, or request never left
+          console.log('onboarding/provider.vue :: signup - error on request')
+          console.log(error.request)
+        } else {
+          // anything else
+          console.log('onboarding/provider.vue :: signup - unknown error')
+          console.log(error)
         }
-      )
+      }
       //TODO: need to redirect to provider home page (with id) here
     }
   }

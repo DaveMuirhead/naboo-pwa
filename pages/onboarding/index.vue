@@ -27,6 +27,5 @@
 
 <script>
 export default {
-  layout: "external",
 };
 </script>

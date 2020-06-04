@@ -1,10 +1,10 @@
 <template>
-    <h1>Provider Home Page</h1>
+    <h1>Provider {{ $route.params.id }} - Home Page</h1>
 </template>
 
 <script>
 export default {
-    layout: 'provider'
+    middleware: 'auth'
 }
 </script>
 

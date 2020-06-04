@@ -1,10 +1,10 @@
 <template>
-    <h1>Seeker Home Page</h1>
+    <h1>Seeker {{ $route.params.id }} - Home Page</h1>
 </template>
 
 <script>
 export default {
-    layout: 'seeker'
+    middleware: 'auth'
 }
 </script>
 
