@@ -7,7 +7,6 @@
         <NuxtLink to="/auth/login">Log In</NuxtLink>
       </v-card-subtitle>
       <v-card-text>
-
         <!-- Full Name -->
         <v-text-field
           v-model="fullName"
@@ -37,7 +36,6 @@
           @click:append="showPassword = !showPassword"
           :error-messages="passwordErrors"
         ></v-text-field>
-
       </v-card-text>
       <v-card-actions>
         <v-spacer />
@@ -71,7 +69,20 @@ export default {
     },
     email: {
       required,
-      email
+      email,
+      notRegistered(email) {
+        if (email === '') return true
+        return this.$axios
+          .$get("/auth/user/email/" + encodeURIComponent(email))
+          .then((response) => {
+            // status == 200 means email exists
+            return response.status == 200;
+          })
+          .catch((error) => {
+            // anything else don't bug the user; we'll catch issues on submit
+            return true;
+          });
+      }
     },
     password: {
       required,
@@ -111,6 +122,9 @@ export default {
       }
       if (!this.$v.email.email) {
         errors.push('Email must be in the format you@yourco.com')
+      }
+      if (!this.$v.email.notRegistered) {
+        errors.push('This email is already registered.')
       }
       if (this.emailError) {
         errors.push(this.emailError);
