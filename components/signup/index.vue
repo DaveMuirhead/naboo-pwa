@@ -39,7 +39,10 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn type="submit" color="primary">Create My Account</v-btn>
+        <v-btn 
+          type="submit" 
+          color="primary"
+          :disabled="!isFormValid">Create My Account</v-btn>
         <v-spacer />
       </v-card-actions>
       <v-card-text>
@@ -54,12 +57,12 @@
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
-  props: ['emailError'],
+  props: ['emailError', 'passwordError'],
   data() {
     return {
-      fullName: "",
-      email: "",
-      password: "",
+      fullName: null,
+      email: null,
+      password: null,
       showPassword: false
     };
   },
@@ -107,6 +110,15 @@ export default {
     }
   },
   computed: {
+    isFormValid() {
+      this.$v.touch
+      var result =
+        this.$v.fullName.$dirty &&
+        this.$v.email.$dirty &&
+        this.$v.password.$dirty &&
+        !this.$v.$anyError
+      return result
+    },
     fullNameErrors() {
       return (this.$v.fullName.$dirty && !this.$v.fullName.required)
         ? ['Please enter your full name.']
@@ -117,18 +129,20 @@ export default {
       if (!this.$v.email.$dirty) {
         return errors;
       }
-      if (!this.$v.email.required) {
+      else if (!this.$v.email.required) {
         errors.push('Email is required.')
       }
-      if (!this.$v.email.email) {
+      else if (!this.$v.email.email) {
         errors.push('Email must be in the format you@yourco.com')
       }
-      if (!this.$v.email.notRegistered) {
+      else if (!this.$v.email.notRegistered) {
         errors.push('This email is already registered.')
       }
-      if (this.emailError) {
+      else if (this.emailError) {
         errors.push(this.emailError);
       }
+      console.log('signup emailErrors returning')
+      console.log(errors)
       return errors;
     },
     passwordErrors() {
@@ -136,12 +150,17 @@ export default {
       if (!this.$v.password.$dirty) {
         return errors;
       }
-      if (!this.$v.password.required) {
+      else if (!this.$v.password.required) {
         errors.push('Password is required.')
       }
-      if (!this.$v.password.strongPassword) {
+      else if (!this.$v.password.strongPassword) {
         errors.push('Please choose a stronger password with at least 8 characters, including a minimum of one each of upper and lower case letters, numbers and special characters.')
       }
+      else if (this.passwordError) {
+        errors.push(this.passwordError);
+      }
+      console.log('signup passwordErrors returning')
+      console.log(errors)
       return errors;
     }
   }

@@ -2,7 +2,10 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col md="6" sm="8">
-        <Signup v-bind:emailError="emailError" @signup="signup"></Signup>
+        <Signup
+          v-bind:emailError="emailError" 
+          v-bind:passwordError="passwordError" 
+          @signup="signup"></Signup>
       </v-col>
     </v-row>
   </v-container>
@@ -17,11 +20,14 @@ export default {
   },
   data() {
     return {
-      emailError: null
+      emailError: null,
+      passwordError: null
     }
   },
   methods: {
     signup($event) {
+      this.emailError = null
+      this.passwordError = null
       this.$store.dispatch(
         'auth/signup',
         {
@@ -31,28 +37,33 @@ export default {
           full_name: $event.full_name,
           password: $event.password
         }
+        //TODO: need to redirect to seeker home page (with id) here
       )
       .catch (
         error => {
-          console.log('seeker.vuew - catch with error');
-          console.log('error.response.status = ' + error.response.status)
-          console.log('error.response.data = ' + JSON.stringify(error.response.data))
-          this.emailError = 'caught error ' + error.response.status
-        //   if (error.response) {
-        //     // client received an error response (5xx, 4xx)
-        //     console.log('onboarding/seeker.vue :: signup - error on response')
-        //     console.log(error.response)
-        //   } else if (error.request) {
-        //     // client never received a response, or request never left
-        //     console.log('onboarding/seeker.vue :: signup - error on request')
-        //     console.log(error.request)
-        //   } else {
-        //     // anything else
-        //     console.log('onboarding/seeker.vue :: signup - unknown error')
-        //     console.log(error)
-        //   }
+          if (error.response) {
+            // client received an error response (5xx, 4xx)
+            var json = JSON.parse(JSON.stringify(error.response.data))
+            var errors = json["errors"]
+
+            var emailErrors = errors["email"]
+            if (emailErrors && emailErrors.length) {
+              this.emailError = emailErrors[0]
+            }
+
+            var passwordErrors = errors["password"]
+            if (passwordErrors && passwordErrors.length) {
+              this.passwordError = passwordErrors[0]
+            }
+
+          } else if (error.request) {
+            // client never received a response, or request never left
+            // TODO: handle network errors 
+          } else {
+            // anything else
+            // TODO: handle unexpected errors 
+          }
         }
-        //TODO: need to redirect to seeker home page (with id) here
       )
     }
   }
