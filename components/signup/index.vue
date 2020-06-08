@@ -73,6 +73,7 @@ export default {
     email: {
       required,
       email,
+      // TODO: notRegistered gets invoked on every @input event - NEED TO DEBOUNCE
       notRegistered(email) {
         if (email === '') return true
         return this.$axios
