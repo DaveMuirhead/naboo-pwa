@@ -29,7 +29,7 @@ export default {
       this.emailError = null
       this.passwordError = null
       this.$store.dispatch(
-        'auth/signup',
+        'auth/identity',
         {
           action: 'signup',
           account_type: 'seeker',
@@ -37,10 +37,17 @@ export default {
           full_name: $event.full_name,
           password: $event.password
         }
-        //TODO: need to redirect to seeker home page (with id) here
+      )
+      .then(
+        result => {
+          console.log("seeker signup succeeded with result")
+          console.log(JSON.parse(JSON.stringify(result)))
+          //TODO: need to redirect to seeker home page (with id) here
+        }
       )
       .catch (
         error => {
+          console.log("seeker signup failed")
           if (error.response) {
             // client received an error response (5xx, 4xx)
             var json = JSON.parse(JSON.stringify(error.response.data))
