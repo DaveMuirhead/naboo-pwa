@@ -29,6 +29,7 @@ export default {
       )
       .then( (result) => {
         console.log('provider signup succeeded')
+        //TODO: need to redirect to provider home page (with id) here
       })
       .catch (error => {
         console.log('provider signup failed')
@@ -46,7 +47,6 @@ export default {
           console.log(error)
         }
       })
-      //TODO: need to redirect to provider home page (with id) here
     }
   }
 };

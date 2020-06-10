@@ -50,12 +50,15 @@ export const actions = {
           commit('setAccessToken', response.data.token);
           commit('setEmail', response.data.email);
           commit('setUuid', response.data.uuid);
-          commit('login')
+          localStorage.token = response.data.token;
+          commit('login');
           return Promise.resolve(response);
         }
       )
       .catch(
         error => {
+          commit('logout');
+          delete localStorage.token;
           console.log(JSON.parse(JSON.stringify(error)));
           return Promise.reject(error);
       }
