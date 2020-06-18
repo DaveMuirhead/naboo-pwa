@@ -12,14 +12,14 @@
 
     <v-row class="my-5" justify="center">
       <v-col class="d-flex justify-center" cols="12" md="4" sm="12">
-        <NuxtLink to="/registration/seeker">
+        <nuxt-link :to="{ name: 'registration', params: { account_type: 'seeker'}}">
           <v-btn color="primary">I'm Seeking Therapy Services</v-btn>
-        </NuxtLink>
+        </nuxt-link>
       </v-col>
       <v-col class="d-flex justify-center" cols="12" md="4" sm="12">
-        <NuxtLink to="/registration/provider">
+        <nuxt-link :to="{ name: 'registration', params: { account_type: 'provider'}}">
           <v-btn color="primary">I Provide Therapy Services</v-btn>
-        </NuxtLink>
+        </nuxt-link>
       </v-col>
     </v-row>
   </v-container>

@@ -31,7 +31,7 @@ export default {
       this.$store.dispatch(
         'registration/start',
         {
-          account_type: 'seeker',
+          account_type: this.$route.params.account_type,
           email: $event.email,
           full_name: $event.full_name,
           password: $event.password
