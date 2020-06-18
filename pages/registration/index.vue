@@ -39,7 +39,7 @@ export default {
       )
       .then(
         result => {
-          this.$router.push("/registration/confirm")
+          this.$router.push({ path: '/registration/confirm', params: { account_type: this.$route.params.account_type}})
         }
       )
       .catch (
