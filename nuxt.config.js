@@ -54,7 +54,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: "http://localhost:4004/v1",
+    baseURL: "http://localhost:4004/api",
     debug: true
   },
   /*

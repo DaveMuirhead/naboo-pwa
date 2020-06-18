@@ -1,40 +1,22 @@
-import User from '@/assets/js/User'
-
 // ============================================================
 // State
 // ============================================================
 export const state = () => ({
-  accessToken: null,
-  email: null,
-  refreshToken: null,
-  uuid: null,
-  user: User.from(localStorage.token)
 })
 
 //https://paweljw.github.io/2017/10/vue.js-front-end-app-part-4-keeping-state-with-vuex/
+
+
+// ============================================================
+// Getters
+// ============================================================
+export const getters = {
+}
 
 // ============================================================
 // Mutations
 // ============================================================
 export const mutations = {
-  setAccessToken(state, token) {
-    state.accessToken = token
-  },
-  setEmail(state, email) {
-    state.email = email
-  },
-  setRefreshToken(state, token) {
-    state.refreshToken = token
-  },
-  setUuid(state, id) {
-    state.uuid = id
-  },
-  login(state) {
-    state.user = User.from(localStorage.token)
-  },
-  logout(state) {
-    state.user = null
-  }
 }
 
 // ============================================================
@@ -42,42 +24,45 @@ export const mutations = {
 // ============================================================
 export const actions = {
 
-  identity({commit}, authData) {
+  signIn({commit, dispatch}, authData) {
     return this.$axios
-      .$post("/auth/identity/callback", authData)
+      .$post("/sessions", authData)
       .then(
         response => {
-          commit('setAccessToken', response.data.token);
-          commit('setEmail', response.data.email);
-          commit('setUuid', response.data.uuid);
-          localStorage.token = response.data.token;
-          commit('login');
+          dispatch('user/setUser', response.data.user, {root:true})
           return Promise.resolve(response);
         }
       )
       .catch(
         error => {
-          commit('logout');
-          delete localStorage.token;
           console.log(JSON.parse(JSON.stringify(error)));
+          dispatch('user/clearUser', null, {root:true})
           return Promise.reject(error);
       }
     )
   },
 
-  logout({commit}) {
-    commit('logout')
-  }
-}
-
-// ============================================================
-// Getters
-// ============================================================
-export const getters = {
-  currentUser (state) {
-    return state.user
+  signOut({commit}) {
+    return this.$axios
+      .$delete("/sessions")
+      .then(
+        response => {
+          dispatch('user/clearUser', null, {root:true})
+          return Promise.resolve(response);
+        }
+      )
+      .catch(
+        error => {
+          console.log(JSON.parse(JSON.stringify(error)));
+          dispatch('user/clearUser', null, {root:true})
+          return Promise.reject(error);
+      }
+    )
   },
-  isAuthenticated(state) {
-    return state.accessToken != null
+
+  isAuthenticated({rootState}) {
+    user = rootState.user.current
+    return user != null && user.active
   }
+ 
 }

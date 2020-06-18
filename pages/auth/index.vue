@@ -18,7 +18,7 @@ export default {
   methods: {
     login($event) {
       this.$store.dispatch(
-        'auth/login',
+        'auth/signIn',
         {
           email: $event.email,
           password: $event.password

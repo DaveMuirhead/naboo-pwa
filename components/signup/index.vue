@@ -4,7 +4,7 @@
       <v-card-title class="headline">Create Your Free Account</v-card-title>
       <v-card-subtitle class="subtitle-1">
         Already have an UpSprout account?
-        <NuxtLink to="/auth/login">Log In</NuxtLink>
+        <NuxtLink to="/auth/signIn">Sign In</NuxtLink>
       </v-card-subtitle>
       <v-card-text>
         <!-- Full Name -->
@@ -77,7 +77,7 @@ export default {
       notRegistered(email) {
         if (email === '') return true
         return this.$axios
-          .$get("/auth/user/email/" + encodeURIComponent(email))
+          .$get("/users/email/" + encodeURIComponent(email))
           .then((response) => {
             // status == 200 means email exists
             return response.status == 200;

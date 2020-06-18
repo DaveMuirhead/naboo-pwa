@@ -29,9 +29,8 @@ export default {
       this.emailError = null
       this.passwordError = null
       this.$store.dispatch(
-        'auth/identity',
+        'registration/start',
         {
-          action: 'signup',
           account_type: 'seeker',
           email: $event.email,
           full_name: $event.full_name,
@@ -40,9 +39,7 @@ export default {
       )
       .then(
         result => {
-          console.log("seeker signup succeeded with result")
-          console.log(JSON.parse(JSON.stringify(result)))
-          //TODO: need to redirect to seeker home page (with id) here
+          this.$router.push("/registration/confirm")
         }
       )
       .catch (
