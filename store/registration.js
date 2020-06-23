@@ -103,5 +103,26 @@ export const actions = {
       }
     )
   },
+
+  /*
+   * GET /registrations/:uuid
+   */
+  continue(context) {
+    return this.$axios
+      .$get("/registrations/" + context.state.registration.uuid)
+      .then(
+        response => {
+          context.commit('setRegistration', response);
+          return Promise.resolve(response);
+        }
+      )
+      .catch(
+        error => {
+          console.log("store.registration.continue caught error")
+          console.log(JSON.parse(JSON.stringify(error)));
+          return Promise.reject(error);
+      }
+    )
+  },
  
 }
