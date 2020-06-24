@@ -36,7 +36,10 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn type="submit" color="primary">Log In</v-btn>
+        <v-btn 
+          type="submit"
+          color="primary"
+          :disabled="!isFormValid">Log In</v-btn>
         <v-spacer />
       </v-card-actions>
       <v-card-text>
@@ -78,6 +81,16 @@ export default {
         password: this.password
       })
     }
+  },
+  computed: {
+    isFormValid() {
+      this.$v.touch
+      var result =
+        this.$v.email.$dirty &&
+        this.$v.password.$dirty &&
+        !this.$v.$anyError
+      return result
+    },
   }
 };
 </script>
