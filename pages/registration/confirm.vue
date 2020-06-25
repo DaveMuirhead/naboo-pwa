@@ -95,6 +95,7 @@ export default {
       )
       .then(
         result => {
+          this.$auth.setUser(result)
           this.$router.push("/")
         }
       )

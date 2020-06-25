@@ -5,7 +5,7 @@
         <v-img :src="require('@/assets/images/logo.png')" width="150" height="60"></v-img>
       </nuxt-link>
       <v-spacer />
-      <nuxt-link to="/auth" v-if="signedOut()">
+      <nuxt-link to="/auth" v-if="!$auth.loggedIn">
         <v-btn outlined color="primary" class="mr-sm-2 mr-md-4">
           <v-icon
             :left="$vuetify.breakpoint.mdAndUp"
@@ -13,16 +13,17 @@
             <span class="hidden-sm-and-down">Sign In</span>
         </v-btn>
       </nuxt-link>
-      <nuxt-link to="/auth/signOut" v-if="signedIn()">
-        <v-btn outlined color="primary" class="mr-sm-2 mr-md-4">
-          <v-icon
-            :left="$vuetify.breakpoint.mdAndUp"
-            :center="$vuetify.breakpoint.mdAndUp">mdi-account</v-icon>
-            <span class="hidden-sm-and-down">Sign Out</span>
-        </v-btn>
-      </nuxt-link>
+      <div v-if="$auth.loggedIn">
+        {{ $auth.user.email }}
+      </div>
+      <v-btn @click="$auth.logout()" v-if="$auth.loggedIn" color="primary" class="mr-sm-2 mr-md-4">
+        <v-icon
+          :left="$vuetify.breakpoint.mdAndUp"
+          :center="$vuetify.breakpoint.mdAndUp">mdi-account</v-icon>
+          <span class="hidden-sm-and-down">Sign Out</span>
+      </v-btn>
       <span>&nbsp;</span>
-      <nuxt-link to="/onboarding" v-if="signedOut()">
+      <nuxt-link to="/onboarding" v-if="!$auth.loggedIn">
         <v-btn color="primary" class="mr-sm-2 mr-md-4">Sign Up</v-btn>
       </nuxt-link>
     </v-app-bar>
@@ -39,14 +40,6 @@
 
 <script>
 export default {
-  methods: {
-    signedIn() {
-      return this.$store.dispatch['auth/isAuthenticated']
-    },
-    signedOut() {
-      return !this.$store.dispatch['auth/isAuthenticated']
-    }
-  }
 };
 </script>
 
