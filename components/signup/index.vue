@@ -36,6 +36,14 @@
           @click:append="showPassword = !showPassword"
           :error-messages="passwordErrors"
         ></v-text-field>
+        In order to protect your account make sure your password:
+        <ul>
+          <li>Is 8 characters or longer</li>
+          <li>Has at least one lower case letter</li>
+          <li>Has at least one upper case letter</li>
+          <li>Has at least one number</li>
+          <li>Has at least one special character (e.g., @, #, $, &amp;, +)</li>
+        </ul>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
