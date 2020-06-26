@@ -44,7 +44,7 @@
       </v-card-actions>
       <v-card-text>
         <div>
-          <NuxtLink to="/auth/recover">Forgot your passsword?</NuxtLink>
+          <NuxtLink to="/password/recover">Forgot your passsword?</NuxtLink>
         </div>
         <v-spacer />
         <div>
