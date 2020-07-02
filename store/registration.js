@@ -91,7 +91,7 @@ export const actions = {
         response => {
           console.log("registration.complete succeeded with response")
           console.log(JSON.parse(JSON.stringify(response)))
-          context.dispatch('user/setUser', response, { root: true })
+          this.$auth.setUser(response)
           context.commit('clearRegistration');
           return Promise.resolve(response);
         }
