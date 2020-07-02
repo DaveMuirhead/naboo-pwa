@@ -76,7 +76,7 @@ export default {
         }
       )
       .then (
-        this.$router.push("/")
+        this.$router.push("/auth")
       )
       .catch (
         error => {
