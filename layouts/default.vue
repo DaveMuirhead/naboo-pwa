@@ -1,21 +1,43 @@
 <template>
   <v-app id="app">
 
-    <!-- Provides menu for mobile -->
-    <v-navigation-drawer v-model="drawer" app disable-resize-watcher>
+    <!-- Provides menu for mobile (breakpoint sm and down) -->
+    <v-navigation-drawer v-model="drawer" app right disable-resize-watcher>
       <v-list>
         <template v-for="menu in menus">
           <v-list-item :key="menu.title" :to="menu.path">
             <v-list-item-action>
-              <v-icon>{{ menu.icon }}</v-icon>
+              <v-icon color="primary">{{ menu.icon }}</v-icon>
             </v-list-item-action>
-            <v-list-item-content>{{ menu.title }}</v-list-item-content>
+            <v-list-item-content text-color="primary">{{ menu.title }}</v-list-item-content>
           </v-list-item>
         </template>
-      </v-list>
+
+        <v-divider background-color="primary" color="primary" />
+
+        <v-list-item key="signIn" to="/auth" v-if="!$auth.loggedIn">
+          <v-list-item-action>
+            <v-icon color="primary">mdi-login</v-icon>
+          </v-list-item-action>
+          <v-list-item-content text-color="primary">Sign In</v-list-item-content>
+        </v-list-item>
+
+        <v-list-item key="signOut" @click="$auth.logout()" v-if="$auth.loggedIn">
+          <v-list-item-action>
+            <v-icon color="primary">mdi-logout</v-icon>
+          </v-list-item-action>
+          <v-list-item-content text-color="primary">Sign Out</v-list-item-content>
+        </v-list-item>
+
+        <v-list-item key="signUp" to="/onboarding" v-if="!$auth.loggedIn">
+          <v-list-item-action>
+            <v-icon color="primary">mdi-account-plus</v-icon>
+          </v-list-item-action>
+          <v-list-item-content text-color="primary">Sign Up</v-list-item-content>
+        </v-list-item>
+    </v-list>
     </v-navigation-drawer>
 
-    <!-- Provides menu for desktop -->
     <v-app-bar color="background" app flat>
       <v-toolbar dense flat color="background">
         <!-- Logo -->
@@ -25,20 +47,13 @@
           </nuxt-link>
         </v-toolbar-title>
         <v-spacer />
-        <!-- Menu -->
+        <!-- Provides menu for desktop (breakpoint md and up) -->
         <v-toolbar-items class="hidden-sm-and-down">
-          <!-- Tour -->
-          <nuxt-link to="/tour">
-            <v-btn text color="primary" class="mr-sm-2 mr-md-4">Tour</v-btn>
-          </nuxt-link>
-          <!-- Testimonials -->
-          <nuxt-link to="/testimonials">
-            <v-btn text color="primary" class="mr-sm-2 mr-md-4">Testimonials</v-btn>
-          </nuxt-link>
-          <!-- Pricing -->
-          <nuxt-link to="/pricing">
-            <v-btn text color="primary" class="mr-sm-2 mr-md-4">Pricing</v-btn>
-          </nuxt-link>
+          <template v-for="menu in menus">
+            <nuxt-link :key="menu.title" :to="menu.path">
+              <v-btn text color="primary" class="mr-sm-2 mr-md-4">{{ menu.title }}</v-btn>
+            </nuxt-link>
+          </template>
         </v-toolbar-items>
         <v-spacer />
         <v-toolbar-items class="hidden-sm-and-down">
@@ -91,10 +106,9 @@ export default {
         return {
             drawer: false,
             menus: [
-                { title: 'About', icon: 'mdi-information', path: '/about' },
+                { title: 'Tour', icon: 'mdi-information', path: '/tour' },
+                { title: 'Testimonials', icon: 'mdi-information', path: '/testimonials' },
                 { title: 'Pricing', icon: 'mdi-tag', path: '/pricing' },
-                { title: 'Sign In', icon: 'mdi-login', path: "/auth" },
-                { title: 'Sign Up', icon: 'mdi-account-plus', path: '/onboarding' }
             ]
         };
     },
