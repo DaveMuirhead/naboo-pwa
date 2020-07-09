@@ -12,23 +12,19 @@
             <v-list-item-content text-color="primary">{{ menu.title }}</v-list-item-content>
           </v-list-item>
         </template>
-
         <v-divider background-color="primary" color="primary" />
-
         <v-list-item key="signIn" to="/auth" v-if="!$auth.loggedIn">
           <v-list-item-action>
             <v-icon color="primary">mdi-login</v-icon>
           </v-list-item-action>
           <v-list-item-content text-color="primary">Sign In</v-list-item-content>
         </v-list-item>
-
         <v-list-item key="signOut" @click="$auth.logout()" v-if="$auth.loggedIn">
           <v-list-item-action>
             <v-icon color="primary">mdi-logout</v-icon>
           </v-list-item-action>
           <v-list-item-content text-color="primary">Sign Out</v-list-item-content>
         </v-list-item>
-
         <v-list-item key="signUp" to="/onboarding" v-if="!$auth.loggedIn">
           <v-list-item-action>
             <v-icon color="primary">mdi-account-plus</v-icon>
