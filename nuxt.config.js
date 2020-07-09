@@ -43,6 +43,12 @@ export default {
     {src: '~/plugins/vuelidate.js'}
   ],
   /*
+  ** Build modules
+  */
+ buildModules: [
+    'vue-browser-detect-plugin/nuxt'
+  ],
+  /*
   ** Nuxt.js modules
   */
   modules: [
@@ -55,7 +61,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: "http://localhost:4004/api",
+    baseURL: "http://10.0.0.217:4004/api",
     credentials: true,
     debug: true
   },
