@@ -15,7 +15,7 @@
                 v-model="fullName"
                 label="Full Name"
                 prepend-icon="mdi-account-circle"
-                @blur="$v.fullName.$touch"
+                @blur="$v.fullName.$touch()"
                 :error-messages="fullNameErrors"
               ></v-text-field>
 
@@ -24,7 +24,7 @@
                 v-model="email"
                 label="Email Address"
                 prepend-icon="mdi-email"
-                @blur="$v.email.$touch"
+                @blur="$v.email.$touch()"
                 :error-messages="emailErrors"
               ></v-text-field>
 
@@ -33,7 +33,7 @@
                 v-model="password"
                 label="Password"
                 prepend-icon="mdi-lock"
-                @blur="$v.password.$touch"
+                @blur="$v.password.$touch()"
                 :type="showPassword ? 'text' : 'password'"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="showPassword = !showPassword"
@@ -49,7 +49,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn type="submit" color="primary" :disabled="!isFormValid">Create My Account</v-btn>
+              <v-btn type="submit" color="primary">Create My Account</v-btn>
               <v-spacer />
             </v-card-actions>
             <v-card-text>
@@ -87,7 +87,8 @@ export default {
       email,
       // TODO: notRegistered gets invoked on every @input event - NEED TO DEBOUNCE
       notRegistered(email) {
-        if (email === '') return true
+        console.log('notRegistered called')
+        if (email === '') return true;
         return this.$axios
           .$get("/users/email/" + encodeURIComponent(email))
           .then((response) => {
@@ -115,58 +116,54 @@ export default {
   },
   methods: {
     signup() {
-      this.emailError = null;
-      this.passwordError = null;
-      this.$store
-        .dispatch("registration/start", {
-          account_type: this.$route.params.account_type,
-          email: this.email,
-          full_name: this.full_name,
-          password: this.password
-        })
-        .then(result => {
-          this.$router.push({
-            path: "/registration/confirm",
-            params: { account_type: this.$route.params.account_type }
+      console.log('is iOS = ' + vm.$browserDetect.isIOS)
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        console.log("calling register")
+        this.emailError = null;
+        this.passwordError = null;
+        this.$store
+          .dispatch("registration/start", {
+            account_type: this.$route.params.account_type,
+            email: this.email,
+            full_name: this.full_name,
+            password: this.password
+          })
+          .then(result => {
+            this.$router.push({
+              path: "/registration/confirm",
+              params: { account_type: this.$route.params.account_type }
+            });
+          })
+          .catch(error => {
+            console.log("seeker signup failed with error");
+            console.log(JSON.parse(JSON.stringify(error)))
+            if (error.response) {
+              // client received an error response (5xx, 4xx)
+              var json = JSON.parse(JSON.stringify(error.response.data));
+              var errors = json["errors"];
+
+              var emailErrors = errors["email"];
+              if (emailErrors && emailErrors.length) {
+                this.emailError = emailErrors[0];
+              }
+
+              var passwordErrors = errors["password"];
+              if (passwordErrors && passwordErrors.length) {
+                this.passwordError = passwordErrors[0];
+              }
+            } else if (error.request) {
+              // client never received a response, or request never left
+              // TODO: handle network errors
+            } else {
+              // anything else
+              // TODO: handle unexpected errors
+            }
           });
-        })
-        .catch(error => {
-          console.log("seeker signup failed with error");
-          console.log(JSON.parse(JSON.stringify(error)))
-          if (error.response) {
-            // client received an error response (5xx, 4xx)
-            var json = JSON.parse(JSON.stringify(error.response.data));
-            var errors = json["errors"];
-
-            var emailErrors = errors["email"];
-            if (emailErrors && emailErrors.length) {
-              this.emailError = emailErrors[0];
-            }
-
-            var passwordErrors = errors["password"];
-            if (passwordErrors && passwordErrors.length) {
-              this.passwordError = passwordErrors[0];
-            }
-          } else if (error.request) {
-            // client never received a response, or request never left
-            // TODO: handle network errors
-          } else {
-            // anything else
-            // TODO: handle unexpected errors
-          }
-        });
+      }
     }
   },
   computed: {
-    isFormValid() {
-      this.$v.touch
-      var result =
-        this.$v.fullName.$dirty &&
-        this.$v.email.$dirty &&
-        this.$v.password.$dirty &&
-        !this.$v.$anyError
-      return result
-    },
     fullNameErrors() {
       return (this.$v.fullName.$dirty && !this.$v.fullName.required)
         ? ['Please enter your full name.']
@@ -189,8 +186,6 @@ export default {
       else if (this.emailError) {
         errors.push(this.emailError);
       }
-      console.log('signup emailErrors returning')
-      console.log(errors)
       return errors;
     },
     passwordErrors() {
@@ -202,13 +197,11 @@ export default {
         errors.push('Password is required.')
       }
       else if (!this.$v.password.strongPassword) {
-        errors.push('Please choose a stronger password with at least 8 characters, including a minimum of one each of upper and lower case letters, numbers and special characters.')
+        errors.push('Please choose a stronger password.')
       }
       else if (this.passwordError) {
         errors.push(this.passwordError);
       }
-      console.log('signup passwordErrors returning')
-      console.log(errors)
       return errors;
     }
   }
