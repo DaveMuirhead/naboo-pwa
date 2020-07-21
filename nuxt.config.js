@@ -43,25 +43,20 @@ export default {
     {src: '~/plugins/vuelidate.js'}
   ],
   /*
-  ** Build modules
-  */
- buildModules: [
-    'vue-browser-detect-plugin/nuxt'
-  ],
-  /*
   ** Nuxt.js modules
   */
   modules: [
     '@nuxtjs/vuetify',
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',   /* https://auth.nuxtjs.org/ */
+    '@nuxtjs/device'  /* https://github.com/nuxt-community/device-module */
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: "http://10.0.0.217:4004/api",
+    baseURL: "http://naboo.brsg.io:4004/api",
     credentials: true,
     debug: true
   },
@@ -80,6 +75,11 @@ export default {
         tokenRequired: false,
         tokenType: false
       }
+    },
+    redirect: {
+      login: '/auth',
+      logout: '/',
+      home: '/desktop'
     }
   },
   /*
@@ -98,25 +98,12 @@ export default {
             darken3: '#4E9D00'
           },
           accent: '#1B676B',
-          background: '#f9fbe7',
+          background: "#ffffff",  /* '#f9fbe7', */
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
-        },
-        dark: {
-          primary: '#74C010',
-          secondary: {
-            base: '#74C010',
-            lighten3: '#a0d367',
-            darken3: '#4E9D00'
-          },
-          accent: '#9c27b0',
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        },
+        }
       },
       options: {
         customProperties: true

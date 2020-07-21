@@ -7,7 +7,7 @@
             <v-card-title class="headline">Create Your Free Account</v-card-title>
             <v-card-subtitle class="subtitle-1">
               Already have an UpSprout account?
-              <NuxtLink to="/auth/signIn">Sign In</NuxtLink>
+              <NuxtLink to="/auth">Sign In</NuxtLink>
             </v-card-subtitle>
             <v-card-text>
               <!-- Full Name -->
@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     signup() {
-      console.log('is iOS = ' + vm.$browserDetect.isIOS)
+      console.log('is iOS = ' + this.$device.isIos)
       this.$v.$touch()
       if (!this.$v.$invalid) {
         console.log("calling register")

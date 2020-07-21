@@ -26,5 +26,14 @@
 
 <script>
 export default {
+  layout: 'default'
+  // data() {
+  //   if (this.$auth.loggedIn) {
+  //     this.$nuxt.setLayout('application');
+  //   }
+  //   else {
+  //     this.$nuxt.setLayout('default');
+  //   }
+  // }
 };
 </script>
