@@ -143,11 +143,12 @@
     <!-- app-bar for some reason                                                -->
     <!-- ====================================================================== -->
     <v-container fill-height fluid>
-      <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
+      <!-- v-row align="center" justify="center" -->
+        <!-- v-col cols="12" sm="8" md="4" -->
+        <!-- v-col -->
             <nuxt />
-        </v-col>
-      </v-row>
+        <!-- /v-col-->
+      <!-- /v-row -->
     </v-container>
 
 

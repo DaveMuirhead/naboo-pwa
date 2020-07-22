@@ -56,7 +56,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: "http://naboo.brsg.io:4004/api",
+    baseURL: "http://dave.brsg.io:4004/api",
     credentials: true,
     debug: true
   },
