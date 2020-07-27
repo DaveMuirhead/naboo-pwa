@@ -1,21 +1,48 @@
-import { email } from "vuelidate/lib/validators"
+import { createHelpers } from 'vuex-map-fields';
+
+const { getAccountField, updateAccountField } = createHelpers({
+  getterType: 'getAccountField',
+  mutationType: 'updateAccountField',
+});
 
 // ============================================================
 // State
 // ============================================================
 export const state = () => ({
+  account: {
+    account_type: null,
+    active: false,
+    email: null,
+    email_verified: true,
+    full_name: null,
+    nickname: null,
+    picture: null,
+    uuid: null
+  },
 })
 
 // ============================================================
 // Getters
 // ============================================================
 export const getters = {
+  getAccountField,
 }
 
 // ============================================================
 // Mutations
 // ============================================================
 export const mutations = {
+  updateAccountField,
+
+  setAccount(state, newAccount) {
+    state.account = newAccount
+  },
+
+  setAccountPicture(state, newUrl) {
+    if (state.account) {
+      state.account.picture = newUrl
+    }
+  }
 }
 
 // ============================================================
@@ -24,52 +51,15 @@ export const mutations = {
 export const actions = {
 
   /*
-   * POST /password-resets
-   * {
-   *   "email": "",
-   *   "reset_form_url": ""
-   * }
+   * GET /users/:uuid
    */
-  start(context, data) {
-    console.log("password.start called with email = " + email)
+  async loadById({commit}, id) {
+    console.log('accounts::loadById called with ' + id)
     return this.$axios
-      .$post("/password-resets", {
-        email: data.email,
-        reset_form_url: "http://localhost:3000/password/reset"
-      })
+      .$get('/users/' + id)
       .then(
         response => {
-          console.log("password.reset succeeded")
-          return Promise.resolve(response);
-        }
-      )
-      .catch(
-        error => {
-          console.log("password.reset failed with error")
-          console.log(JSON.parse(JSON.stringify(error)));
-          return Promise.reject(error);
-      }
-    )
-  },
-  /* 
-   * PATCH /password-resets/:secret
-   * {
-   *   "password": ""
-   * }
-   */
-  complete(context, data) {
-    console.log("password.complete called with data")
-    console.log(JSON.parse(JSON.stringify(data)))
-    return this.$axios
-      .$patch(
-        "/password-resets/" + data.token, 
-        {
-          password: data.password
-        })
-      .then(
-        response => {
-          console.log("password.complete succeeded with response")
-          console.log(JSON.parse(JSON.stringify(response)))
+          commit('setAccount', response);
           return Promise.resolve(response);
         }
       )
@@ -80,30 +70,44 @@ export const actions = {
       }
     )
   },
-  /*
-   * PATCH /users/:uuid/password
-   * {
-   *   "old_password": "",
-   *   "new_password": ""
-   * }
-   */
-  update(context, data) {
+
+  updatePicture({commit}, url) {
+    commit('setAccountPicture', url)
+  },
+
+  saveAccountUpdates({state, commit}) {
+    console.log('accounts::saveAccountUpdates called')
     return this.$axios
-      .$put(
-        "/users/" + data.uuid + "/password-changes", 
-        {
-          old_password: data.old_password,
-          new_password: data.new_password
-        })
+      .$patch('/users/' + state.account.uuid, state.account)
       .then(
         response => {
+          commit('setAccount', response);
           return Promise.resolve(response);
         }
       )
       .catch(
         error => {
-          return Promise.reject(error.response);
+          console.log(JSON.parse(JSON.stringify(error)));
+          return Promise.reject(error);
       }
     )
   },
+
+  cancelAccountUpdates({state, commit}) {
+    console.log('accounts::cancelAccountUpdates called')
+    return this.$axios
+      .$get('/users/' + state.account.uuid)
+      .then(
+        response => {
+          commit('setAccount', response);
+          return Promise.resolve(response);
+        }
+      )
+      .catch(
+        error => {
+          console.log(JSON.parse(JSON.stringify(error)));
+          return Promise.reject(error);
+      }
+    )
+  } 
 }

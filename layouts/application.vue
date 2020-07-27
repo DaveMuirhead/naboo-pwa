@@ -142,14 +142,16 @@
     <!-- NOTE: using v-main here causes the content to be occluded by the       -->
     <!-- app-bar for some reason                                                -->
     <!-- ====================================================================== -->
-    <v-container fill-height fluid>
-      <!-- v-row align="center" justify="center" -->
-        <!-- v-col cols="12" sm="8" md="4" -->
-        <!-- v-col -->
-            <nuxt />
-        <!-- /v-col-->
-      <!-- /v-row -->
-    </v-container>
+    <!-- <v-main> -->
+      <v-content fluid class="ml-6 mt-3">
+        <!-- v-row align="center" justify="center" -->
+          <!-- v-col cols="12" sm="8" md="4" -->
+          <!-- v-col -->
+              <nuxt />
+          <!-- /v-col-->
+        <!-- /v-row -->
+      </v-content>
+    <!-- </v-main> -->
 
 
     <!-- ====================================================================== -->
