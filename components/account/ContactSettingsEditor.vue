@@ -1,49 +1,26 @@
 <template>
   <div>
     <div v-if="editing">
+      <h3 align="center">Update Contact Information </h3>
       <form>
         <v-card flat>
           <v-card-text>
             <div>
               <label>Full Name</label>
-              <v-text-field v-model="full_name" dense></v-text-field>
+              <v-text-field v-model="full_name" dense outlined></v-text-field>
             </div>
             <div>
               <label>Nickname</label>
-              <v-text-field v-model="nickname" dense></v-text-field>
-            </div>
-            <div>
-              <label>Street 1</label>
-              <v-text-field v-model="street1" dense></v-text-field>
-            </div>
-            <div>
-              <label>Street 2</label>
-              <v-text-field v-model="street2" dense></v-text-field>
-            </div>
-            <div>
-              <label>City</label>
-              <v-text-field v-model="city" dense></v-text-field>
-            </div>
-            <div>
-              <label>State</label>
-              <v-text-field v-model="state" dense></v-text-field>
-            </div>
-            <div>
-              <label>Postal Code</label>
-              <v-text-field v-model="postal_code" dense></v-text-field>
-            </div>
-            <div>
-              <label>Country</label>
-              <v-text-field v-model="country" dense></v-text-field>
+              <v-text-field v-model="nickname" dense outlined></v-text-field>
             </div>
             <div>
               <label>Telephone</label>
-              <v-text-field v-model="phone1" dense></v-text-field>
+              <vue-tel-input v-model="phone1"></vue-tel-input>
             </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary">Save</v-btn>
-            <v-btn @click="editing = false">Cancel</v-btn>
+            <v-btn color="primary" @click="update">Save</v-btn>
+            <v-btn @click="cancel">Cancel</v-btn>
           </v-card-actions>
         </v-card>
       </form>
@@ -60,30 +37,6 @@
               <v-input>{{ nickname }}</v-input>
             </div>
             <div>
-              <label>Street 1</label>
-              <v-input>{{ street1 ? street1 : '(Not Set)' }}</v-input>
-            </div>
-            <div>
-              <label>Street 2</label>
-              <v-input>{{ street2 ? street2 : '(Not Set)' }}</v-input>
-            </div>
-            <div>
-              <label>City</label>
-              <v-input>{{ city ? city : '(Not Set)' }}</v-input>
-            </div>
-            <div>
-              <label>State</label>
-              <v-input>{{ state ? state : '(Not Set)' }}</v-input>
-            </div>
-            <div>
-              <label>Postal Code</label>
-              <v-input>{{ postal_code ? postal_code : '(Not Set)' }}</v-input>
-            </div>
-            <div>
-              <label>Country</label>
-              <v-input>{{ country ? country : '(Not Set)' }}</v-input>
-            </div>
-            <div>
               <label>Telephone</label>
               <v-input>{{ phone1 ? phone1 : '(Not Set)' }}</v-input>
             </div>
@@ -97,29 +50,54 @@
 </template>
 
 <script>
+import { VueTelInput } from 'vue-tel-input';
 import { createHelpers } from 'vuex-map-fields';
 const { mapFields } = createHelpers({
   getterType: 'getAccountField',
   mutationType: 'updateAccountField',
 });
 export default {
+  components: {
+    VueTelInput
+  },
   data() {
     return {
       editing: false,
+      options: {
+        phone: true,
+        phoneRegionCode: 'US'
+      } 
     };
   },
   computed: {
     ...mapFields('accounts', [
       'account.full_name',
       'account.nickname',
-      'account.street1',
-      'account.street2',
-      'account.city',
-      'account.state',
-      'account.postalCode',
-      'account.country',
       'account.phone1'
     ]),
+  },
+  methods: {
+    update() {
+      this.$store
+        .dispatch("accounts/saveAccountUpdates")
+        .then(result => {
+          this.editing = false;
+          this.resetForm();
+        })
+        .catch(response => {
+          console.log(JSON.parse(JSON.stringify(response)))
+        })
+    },
+    cancel() {
+      this.$store
+        .dispatch("accounts/cancelAccountUpdates")
+        .then(result => {
+          this.editing = false;
+        })
+        .catch(response => {
+          console.log(JSON.parse(JSON.stringify(response)))
+        })
+    }
   }
 };
 </script>

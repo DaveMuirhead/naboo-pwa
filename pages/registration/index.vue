@@ -126,7 +126,7 @@ export default {
           .dispatch("registration/start", {
             account_type: this.$route.params.account_type,
             email: this.email,
-            full_name: this.full_name,
+            full_name: this.fullName,
             password: this.password
           })
           .then(result => {

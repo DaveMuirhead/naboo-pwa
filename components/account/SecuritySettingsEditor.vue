@@ -9,6 +9,7 @@
               <label>Current Password</label>
               <v-text-field
                 dense
+                outlined
                 v-model="currentPassword"
                 @blur="$v.currentPassword.$touch()"
                 :type="showCurrentPassword ? 'text' : 'password'"
@@ -21,6 +22,7 @@
               <label>New Password</label>
               <v-text-field
                 dense
+                outlined
                 v-model="newPassword"
                 @blur="$v.newPassword.$touch()"
                 :type="showNewPassword ? 'text' : 'password'"
@@ -33,6 +35,7 @@
               <label>Confirm Password</label>
               <v-text-field
                 dense
+                outlined
                 v-model="confirmPassword"
                 :type="showConfirmPassword ? 'text' : 'password'"
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"

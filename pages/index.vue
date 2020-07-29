@@ -26,7 +26,8 @@
 
 <script>
 export default {
-  layout: 'default'
+  layout: 'default',
+  middleware: 'authenticated'
   // data() {
   //   if (this.$auth.loggedIn) {
   //     this.$nuxt.setLayout('application');

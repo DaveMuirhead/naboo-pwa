@@ -52,6 +52,8 @@ export const actions = {
    * }
    */
   start({commit}, userData) {
+    console.log("registration.start called with userData")
+    console.log(JSON.parse(JSON.stringify(userData)))
     return this.$axios
       .$post("/registrations", userData)
       .then(

@@ -10,6 +10,7 @@
 
 <script>
 export default {
-  layout: 'application'
+  layout: 'application',
+  middleware: 'auth'
 };
 </script>
