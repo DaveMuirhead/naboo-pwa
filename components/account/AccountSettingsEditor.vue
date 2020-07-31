@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="editing">
-      <form ref="accountSettingsForm" @submit.prevent="next">
+      <form @submit.prevent="next">
         <v-card flat>
           <v-card-text>
             <div>
@@ -127,7 +127,13 @@ export default {
       }
     },
     cancel() {
-      alert('not implemented yet')
+      this.editing = false;
+      this.newEmail = null,
+      this.newEmailError = null,
+      this.confirming = false,
+      this.secret = null,
+      this.code = null,
+      this.codeMessages = null
     },
     resendCode() {
       alert('not implemented yet')

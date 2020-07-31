@@ -2,6 +2,7 @@
   <v-row>
     <v-col md="6" sm="8">
       <v-expansion-panels v-model="panel" multiple>
+
         <v-expansion-panel>
           <v-expansion-panel-header class="font-weight-bold">
             Account Settings
@@ -26,6 +27,16 @@
             </v-container> -->
           </v-expansion-panel-content>
         </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header class="font-weight-bold">
+            Profile Picture
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <!-- <AvatarSettingsEditor /> -->
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+
         <v-expansion-panel>
           <v-expansion-panel-header class="font-weight-bold">
             Contact Information
@@ -34,6 +45,7 @@
             <ContactSettingsEditor />
           </v-expansion-panel-content>
         </v-expansion-panel>
+
         <v-expansion-panel>
           <v-expansion-panel-header class="font-weight-bold">
             Security Settings
@@ -42,6 +54,7 @@
             <SecuritySettingsEditor />
           </v-expansion-panel-content>
         </v-expansion-panel>
+        
       </v-expansion-panels>
     </v-col>
   </v-row>
@@ -49,6 +62,7 @@
 
 <script>
 import AccountSettingsEditor from '@/components/account/AccountSettingsEditor';
+// import AvatarSettingsEditor from '@/components/account/AvatarSettingsEditor';
 import ContactSettingsEditor from '@/components/account/ContactSettingsEditor';
 import SecuritySettingsEditor from '@/components/account/SecuritySettingsEditor';
 export default {
@@ -58,6 +72,7 @@ export default {
   },
   components: {
     AccountSettingsEditor,
+    // AvatarSettingsEditor,
     ContactSettingsEditor,
     SecuritySettingsEditor
   },
