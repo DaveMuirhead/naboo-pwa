@@ -33,7 +33,7 @@
             Profile Picture
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <!-- <AvatarSettingsEditor /> -->
+            <AvatarSettingsEditor />
           </v-expansion-panel-content>
         </v-expansion-panel>
 
@@ -62,7 +62,7 @@
 
 <script>
 import AccountSettingsEditor from '@/components/account/AccountSettingsEditor';
-// import AvatarSettingsEditor from '@/components/account/AvatarSettingsEditor';
+import AvatarSettingsEditor from '@/components/account/AvatarSettingsEditor';
 import ContactSettingsEditor from '@/components/account/ContactSettingsEditor';
 import SecuritySettingsEditor from '@/components/account/SecuritySettingsEditor';
 export default {
@@ -72,13 +72,13 @@ export default {
   },
   components: {
     AccountSettingsEditor,
-    // AvatarSettingsEditor,
+    AvatarSettingsEditor,
     ContactSettingsEditor,
     SecuritySettingsEditor
   },
   data() {
     return {
-       panel: [0, 1, 2],
+       panel: [0, 1, 2, 3],
     }
   }
 };

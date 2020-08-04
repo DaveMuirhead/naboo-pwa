@@ -16,12 +16,9 @@
       <template v-slot:prepend>
         <v-list-item two-line @click="editProfile()">
           <v-list-item-avatar color="primary" size="36">
-            <div v-if="$auth.user.picture">
-              <v-img src="$auth.user.picture"></v-img>
-            </div>
-            <div v-else>
-              <v-icon dark>mdi-account-circle</v-icon>
-            </div>
+            <v-img v-if="$auth.user.avatar_url" :src="$auth.user.avatar_url"></v-img>
+            <span v-else-if="initials" class="white--text headline">{{ initials }}</span>
+            <v-icon v-else dark>mdi-account-circle</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>
@@ -95,18 +92,17 @@
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-avatar color="white" size="42" v-on="on" v-bind="attrs">
-                <v-icon color="primary" size="36">mdi-account-circle</v-icon>
+                <v-img v-if="$auth.user.avatar_url" :src="$auth.user.avatar_url"></v-img>
+                <span v-else-if="initials" class="white--text headline">{{ initials }}</span>
+                <v-icon v-else dark>mdi-account-circle</v-icon>
               </v-avatar>
             </template>
             <v-list subheader>
               <v-list-item two-line class="menu-header" @click="editProfile()">
                 <v-list-item-avatar color="primary" size="48">
-                  <div v-if="$auth.user.picture">
-                    <v-img src="$auth.user.picture"></v-img>
-                  </div>
-                  <div v-else>
-                    <v-icon dark>mdi-account-circle</v-icon>
-                  </div>
+                  <v-img v-if="$auth.user.avatar_url" :src="$auth.user.avatar_url"></v-img>
+                  <span v-else-if="initials" class="white--text headline">{{ initials }}</span>
+                  <v-icon v-else dark>mdi-account-circle</v-icon>
                 </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title>
@@ -188,5 +184,23 @@
       }
     },
 
+  computed: {
+    initials() {
+      let initials = null;
+      let full_name = this.$auth.user.full_name;
+      if (full_name) {
+        initials = full_name
+          .split(" ")
+          .map(([firstLetter]) => firstLetter)
+          .filter(
+            (_, index, array) => index === 0 || index === array.length - 1
+          )
+          .join("")
+          .toUpperCase();
+      }
+      return initials;
+    }
   }
+
+}
 </script>

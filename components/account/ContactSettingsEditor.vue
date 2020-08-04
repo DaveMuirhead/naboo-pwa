@@ -83,6 +83,7 @@ export default {
         .then(result => {
           this.editing = false;
           this.resetForm();
+          this.$auth.fetchUser();
         })
         .catch(response => {
           console.log(JSON.parse(JSON.stringify(response)))

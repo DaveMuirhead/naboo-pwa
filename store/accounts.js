@@ -71,8 +71,43 @@ export const actions = {
     )
   },
 
-  updatePicture({commit}, url) {
-    commit('setAccountPicture', url)
+  // updateAvatar({state, commit}, imageBase64) {
+  //   console.log('accounts::updateAvatar called with file ' + imageBase64);
+  //   return this.$axios
+  //     .$patch('/users/' + state.account.uuid, {avatar: imageBase64})
+  //     .then(
+  //       response => {
+  //         commit('setAccount', response);
+  //         return Promise.resolve(response);
+  //       }
+  //     )
+  //     .catch(
+  //       error => {
+  //         //TODO handle errors
+  //         console.log(JSON.parse(JSON.stringify(error)));
+  //         return Promise.reject(error);
+  //     }
+  //   )
+  // },
+
+  updateAvatar({state, commit}, file) {
+    const formData = new FormData();
+    formData.append('avatar', file, file.name)
+    return this.$axios
+      .$patch('/users/' + state.account.uuid, formData)
+      .then(
+        response => {
+          commit('setAccount', response);
+          return Promise.resolve(response);
+        }
+      )
+      .catch(
+        error => {
+          //TODO handle errors
+          console.log(JSON.parse(JSON.stringify(error)));
+          return Promise.reject(error);
+      }
+    )
   },
 
   saveAccountUpdates({state, commit}) {
