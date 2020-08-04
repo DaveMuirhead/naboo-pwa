@@ -1,48 +1,19 @@
-import { createHelpers } from 'vuex-map-fields';
-
-const { getAccountField, updateAccountField } = createHelpers({
-  getterType: 'getAccountField',
-  mutationType: 'updateAccountField',
-});
-
 // ============================================================
 // State
 // ============================================================
 export const state = () => ({
-  account: {
-    account_type: null,
-    active: false,
-    email: null,
-    email_verified: true,
-    full_name: null,
-    nickname: null,
-    picture: null,
-    uuid: null
-  },
 })
 
 // ============================================================
 // Getters
 // ============================================================
 export const getters = {
-  getAccountField,
 }
 
 // ============================================================
 // Mutations
 // ============================================================
 export const mutations = {
-  updateAccountField,
-
-  setAccount(state, newAccount) {
-    state.account = newAccount
-  },
-
-  setAccountPicture(state, newUrl) {
-    if (state.account) {
-      state.account.picture = newUrl
-    }
-  }
 }
 
 // ============================================================
@@ -50,54 +21,13 @@ export const mutations = {
 // ============================================================
 export const actions = {
 
-  /*
-   * GET /users/:uuid
-   */
-  async loadById({commit}, id) {
-    console.log('accounts::loadById called with ' + id);
-    return this.$axios
-      .$get('/users/' + id)
-      .then(
-        response => {
-          commit('setAccount', response);
-          return Promise.resolve(response);
-        }
-      )
-      .catch(
-        error => {
-          console.log(JSON.parse(JSON.stringify(error)));
-          return Promise.reject(error);
-      }
-    )
-  },
-
-  // updateAvatar({state, commit}, imageBase64) {
-  //   console.log('accounts::updateAvatar called with file ' + imageBase64);
-  //   return this.$axios
-  //     .$patch('/users/' + state.account.uuid, {avatar: imageBase64})
-  //     .then(
-  //       response => {
-  //         commit('setAccount', response);
-  //         return Promise.resolve(response);
-  //       }
-  //     )
-  //     .catch(
-  //       error => {
-  //         //TODO handle errors
-  //         console.log(JSON.parse(JSON.stringify(error)));
-  //         return Promise.reject(error);
-  //     }
-  //   )
-  // },
-
-  updateAvatar({state, commit}, file) {
+  updateAvatar({state}, file) {
     const formData = new FormData();
     formData.append('avatar', file, file.name)
     return this.$axios
       .$patch('/users/' + state.account.uuid, formData)
       .then(
         response => {
-          commit('setAccount', response);
           return Promise.resolve(response);
         }
       )
@@ -110,10 +40,10 @@ export const actions = {
     )
   },
 
-  saveAccountUpdates({state, commit}) {
-    console.log('accounts::saveAccountUpdates called');
+  updateAccount({state, commit}, data) {
+    console.log('accounts::updateAccount called');
     return this.$axios
-      .$patch('/users/' + state.account.uuid, state.account)
+      .$patch('/users/' + state.account.uuid, data)
       .then(
         response => {
           commit('setAccount', response);
@@ -127,10 +57,6 @@ export const actions = {
           return Promise.reject(error);
       }
     )
-  },
-
-  cancelAccountUpdates(context) {
-    return context.dispatch('loadById', context.state.account.uuid)
   },
 
   startEmailChange(context, newEmailAddress) {
@@ -155,7 +81,6 @@ export const actions = {
       .$patch('/users/' + context.state.account.uuid + '/email-changes', data)
       .then(
         response => {
-          context.commit('setAccount', response);
           return Promise.resolve(response);
         }
       )

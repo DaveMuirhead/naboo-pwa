@@ -67,9 +67,6 @@ import ContactSettingsEditor from '@/components/account/ContactSettingsEditor';
 import SecuritySettingsEditor from '@/components/account/SecuritySettingsEditor';
 export default {
   layout: "application",
-  middleware ({ store, route }) {
-    store.dispatch('accounts/loadById', route.params.id)
-  },
   components: {
     AccountSettingsEditor,
     AvatarSettingsEditor,

@@ -6,11 +6,11 @@
           <v-card-text>
             <div>
               <label>Account ID</label>
-              <v-input>{{ uuid }}</v-input>
+              <v-input>{{ $auth.user.uuid }}</v-input>
             </div>
             <div>
               <label>Account Type</label>
-              <v-input>{{ account_type }}</v-input>
+              <v-input>{{ $auth.user.account_type }}</v-input>
             </div>
             <div>
               <h3 align="center">Update Primary Email Address</h3>
@@ -47,15 +47,15 @@
           <v-card-text>
             <div>
               <label>Account ID</label>
-              <v-input>{{ uuid }}</v-input>
+              <v-input>{{ $auth.user.uuid }}</v-input>
             </div>
             <div>
               <label>Account Type</label>
-              <v-input>{{ account_type }}</v-input>
+              <v-input>{{ $auth.user.account_type }}</v-input>
             </div>
             <div>
               <label>Account Email</label>
-              <v-input>{{ email }}</v-input>
+              <v-input>{{ $auth.user.email }}</v-input>
             </div>
           </v-card-text>
           <v-card-actions>
@@ -67,11 +67,6 @@
 </template>
 
 <script>
-import { createHelpers } from 'vuex-map-fields';
-const { mapFields } = createHelpers({
-  getterType: 'getAccountField',
-  mutationType: 'updateAccountField',
-});
 export default {
   data() {
     return {
@@ -84,24 +79,16 @@ export default {
       codeMessages: null
     };
   },
-  computed: {
-    ...mapFields('accounts', [
-      'account.uuid',
-      'account.account_type',
-      'account.email'
-    ]),
-  },
   methods: {
     start() {
       this.$store
         .dispatch("accounts/startEmailChange", this.newEmail)
         .then(result => {
-          console.log("startEmailChange succeeded with result:")
-          console.log(JSON.parse(JSON.stringify(result)))
           this.secret = result.secret;
           this.confirming = true;
         })
         .catch(response => {
+          //TODO handle errors (invalid code, unauthenticated, etc.)
           console.log("startEmailChange failed with response:")
           console.log(JSON.parse(JSON.stringify(response)))
         })
@@ -136,6 +123,7 @@ export default {
       this.codeMessages = null
     },
     resendCode() {
+      //TODO implement resendCode
       alert('not implemented yet')
     },
     next() {

@@ -7,15 +7,15 @@
           <v-card-text>
             <div>
               <label>Full Name</label>
-              <v-text-field v-model="full_name" dense outlined></v-text-field>
+              <v-text-field v-model="edited.full_name" dense outlined></v-text-field>
             </div>
             <div>
               <label>Nickname</label>
-              <v-text-field v-model="nickname" dense outlined></v-text-field>
+              <v-text-field v-model="edited.nickname" dense outlined></v-text-field>
             </div>
             <div>
               <label>Telephone</label>
-              <vue-tel-input v-model="phone1"></vue-tel-input>
+              <vue-tel-input v-model="edited.phone1"></vue-tel-input>
             </div>
           </v-card-text>
           <v-card-actions>
@@ -30,19 +30,19 @@
           <v-card-text>
             <div>
               <label>Full Name</label>
-              <v-input>{{ full_name }}</v-input>
+              <v-input>{{ $auth.user.full_name }}</v-input>
             </div>
             <div>
               <label>Nickname</label>
-              <v-input>{{ nickname }}</v-input>
+              <v-input>{{ $auth.user.nickname }}</v-input>
             </div>
             <div>
               <label>Telephone</label>
-              <v-input>{{ phone1 ? phone1 : '(Not Set)' }}</v-input>
+              <v-input>{{ $auth.user.phone1 }}</v-input>
             </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" @click="editing = !editing">Edit</v-btn>
+            <v-btn color="primary" @click="edit()">Edit</v-btn>
           </v-card-actions>
         </v-card>
     </div>
@@ -52,10 +52,6 @@
 <script>
 import { VueTelInput } from 'vue-tel-input';
 import { createHelpers } from 'vuex-map-fields';
-const { mapFields } = createHelpers({
-  getterType: 'getAccountField',
-  mutationType: 'updateAccountField',
-});
 export default {
   components: {
     VueTelInput
@@ -63,41 +59,34 @@ export default {
   data() {
     return {
       editing: false,
+      edited: null,
       options: {
         phone: true,
         phoneRegionCode: 'US'
       } 
     };
   },
-  computed: {
-    ...mapFields('accounts', [
-      'account.full_name',
-      'account.nickname',
-      'account.phone1'
-    ]),
-  },
   methods: {
+    edit() {
+      this.edited = Object.assign({}, this.$auth.user);
+      this.editing = true;
+    },
     update() {
       this.$store
-        .dispatch("accounts/saveAccountUpdates")
+        .dispatch("accounts/updateAccount", this.edited)
         .then(result => {
           this.editing = false;
-          this.resetForm();
+          this.edited = null;
           this.$auth.fetchUser();
         })
         .catch(response => {
+          //TODO handle errors
           console.log(JSON.parse(JSON.stringify(response)))
         })
     },
     cancel() {
-      this.$store
-        .dispatch("accounts/cancelAccountUpdates")
-        .then(result => {
-          this.editing = false;
-        })
-        .catch(response => {
-          console.log(JSON.parse(JSON.stringify(response)))
-        })
+      this.editing = false;
+      this.edited = null;
     }
   }
 };
