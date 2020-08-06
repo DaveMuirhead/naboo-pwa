@@ -54,32 +54,26 @@
         <!-- Provides menu for desktop (breakpoint md and up) -->
         <v-toolbar-items class="hidden-sm-and-down">
           <template v-for="menu in menus">
-            <nuxt-link :key="menu.title" :to="menu.path">
-              <v-btn text color="primary" class="mr-sm-2 mr-md-4">{{ menu.title }}</v-btn>
-            </nuxt-link>
+            <v-btn :key="menu.title" :to="menu.path" nuxt text color="primary" class="mr-sm-2 mr-md-4">{{ menu.title }}</v-btn>
           </template>
         </v-toolbar-items>
 
         <v-spacer />
 
-        <v-toolbar-items class="hidden-sm-and-down">
-          <div>
-            <!-- Sign In -->
-            <nuxt-link to="/auth">
-              <v-btn outlined color="primary">
-                <v-icon left>mdi-login</v-icon>
-                Sign In
-              </v-btn>
-            </nuxt-link>
-            <!-- Sign Up -->
-            <nuxt-link to="/onboarding">
-              <v-btn color="primary" class="mr-sm-2 mr-md-4">
-              <v-icon left>mdi-account-plus</v-icon>
-                Sign Up
-              </v-btn>
-            </nuxt-link>
-          </div>
-        </v-toolbar-items>
+        <div>
+          <!-- Sign In -->
+          <v-btn to="/auth" nuxt outlined color="primary" >
+            <v-icon left>mdi-login</v-icon>
+            Sign In
+          </v-btn>
+          &nbsp;&nbsp;
+          <!-- Sign Up -->
+          <v-btn to="/onboarding" nuxt color="primary" class="mr-sm-2 mr-md-4">
+            <v-icon left>mdi-account-plus</v-icon>
+            Sign Up
+          </v-btn>
+        </div>
+        
       </v-toolbar>
     </v-app-bar>
 
@@ -89,9 +83,9 @@
     </v-content>
 
     <!-- Footer -->
-    <v-footer app color="primary">
-      <span style="color: white">&copy; 2020 Dave Muirhead - All Rights Reserved</span>
-    </v-footer>
+    <v-footer app color="primary" dense>
+       <span class="white--text">&copy; {{ new Date().getFullYear() }} Dave Muirhead - All Rights Reserved</span>
+   </v-footer>
 
   </v-app>
 </template>

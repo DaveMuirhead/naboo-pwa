@@ -154,7 +154,7 @@
     <!--  Footer                                                                -->
     <!-- ====================================================================== -->
     <v-footer app color="primary">
-      <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
+       <span class="white--text">&copy; {{ new Date().getFullYear() }} Dave Muirhead - All Rights Reserved</span>
     </v-footer>
 
   </v-app>

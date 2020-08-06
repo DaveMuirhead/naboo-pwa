@@ -11,7 +11,7 @@
     </v-content>
 
     <v-footer app color="primary">
-      <span style="color: white">&copy; 2020 Dave Muirhead - All Rights Reserved</span>
+       <span class="white--text">&copy; {{ new Date().getFullYear() }} Dave Muirhead - All Rights Reserved</span>
     </v-footer>
   </v-app>
 </template>
