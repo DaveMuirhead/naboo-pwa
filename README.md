@@ -4,14 +4,10 @@ Naboo PWA is a Nuxt/VueJS-based front end which is served by the Phoenix-based [
 
 ## Stack
 
-NuxtJS
-<img src="https://vuejs.org/images/nuxt.png" height="100" />
+<img src="https://vuejs.org/images/nuxt.png" height="60" />
 
-ViewJS
-<img src="https://vuejs.org/images/logo.png" height="100" />
+<img src="https://vuejs.org/images/logo.png" height="60" />
 
-Vuetify
-<img src="https://vuejs.org/images/vuetify.png" height="100" />
+<img src="https://vuejs.org/images/vuetify.png" height="60" />
 
-Axios
 <a href="https://github.com/axios/axios">Axios</a>
